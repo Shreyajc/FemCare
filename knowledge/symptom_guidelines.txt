@@ -1,0 +1,107 @@
+# Symptom Severity & Interpretation Guidelines
+
+## Pain Level Interpretation
+Scale: 0 to 10 numerical rating scale.
+
+- 0–3 (Mild):
+  - Description: Dull, noticeable, or periodic discomfort.
+  - Functional Impact: Normal daily activities are usually uninterrupted.
+  - Action: General home care, rest, or mild over-the-counter support as appropriate.
+
+- 4–6 (Moderate):
+  - Description: Persistent, noticeable pain or cramping.
+  - Functional Impact: Some daily activities become difficult or require modification.
+  - Action: Hydration, heat therapy, simple pain relief, and monitoring for pattern changes.
+
+- 7–10 (Severe):
+  - Description: Intense, sharp, disabling, or agonizing pain.
+  - Functional Impact: Inability to perform basic daily activities, sleep, or move comfortably.
+  - Action: Persistent or sudden severe pain warrants prompt evaluation by a healthcare provider or gynecologist.
+
+---
+
+## Flow Intensity Interpretation
+
+- Light:
+  - Description: Spotting, minimal pad/tampon usage (1–2 light products/day), or lasting under 2 days.
+  - Context: Common with hormonal contraception, perimenopause, or early pregnancy; investigate if sudden or persistent.
+
+- Moderate:
+  - Description: Soaking 3–5 regular pads/tampons per day, lasting 3–7 days.
+  - Context: Normal physiological range for most individuals.
+
+- Heavy:
+  - Description: Soaking a high-absorbency pad/tampon every 1–2 hours for consecutive hours, passing large clots (>2.5 cm).
+  - Context: High risk for iron deficiency; requires medical evaluation if routine or accompanied by fatigue.
+
+---
+
+## Stress Impact Interpretation
+
+- Low Impact:
+  - Description: Occasional daily stressors, temporary feeling of pressure.
+  - Hormonal Effect: Unlikely to alter cycle timing or flow.
+
+- Moderate Impact:
+  - Description: Prolonged stress over weeks, noticeable changes in sleep or mood.
+  - Hormonal Effect: May cause minor cycle shifts (2–5 days late/early) or heightened PMS symptoms.
+
+- High Impact:
+  - Description: Chronic high anxiety, severe life events, ongoing burnout.
+  - Hormonal Effect: High cortisol levels can delay or suppress ovulation, leading to missed periods (amenorrhea) or irregular spotting.
+
+---
+
+## Sleep Quality Interpretation
+
+- Optimal (7–9 hours continuous):
+  - Endocrine Impact: Supports baseline LH, FSH, and cortisol rhythm regulation.
+
+- Moderately Disrupted (5–6 hours or frequent awakenings):
+  - Endocrine Impact: Mild circadian disruption; can worsen mood swings, fatigue, and pain sensitivity during PMS.
+
+- Severely Disrupted (<5 hours or chronic insomnia):
+  - Endocrine Impact: Significant disruption to reproductive hormone secretion, elevated cortisol, potential cycle irregularity, and lowered pain threshold.
+
+---
+
+## Cycle Length Deviation
+
+- Normal (21–35 days):
+  - Regular baseline cycle length.
+
+- Mild Variance (Variation of 3–7 days month-to-month):
+  - Often related to acute stress, travel, illness, or diet changes; usually self-resolving.
+
+- Significant Variance (<21 days, >35 days, or missing 3+ consecutive cycles):
+  - Suggests potential underlying hormonal imbalance (e.g., PCOS, thyroid disorder, hypothalamic amenorrhea) requiring clinical follow-up.
+
+---
+
+## PCOS Symptom Clusters
+
+- Low Likelihood Cluster:
+  - Single isolated symptom (e.g., mild acne alone with fully regular cycles).
+
+- Moderate Likelihood Cluster:
+  - Irregular cycles combined with one metabolic or dermatological sign (e.g., persistent acne or mild hirsutism).
+
+- High Likelihood Cluster:
+  - Classic triad or strong combination: Irregular/absent periods + clinical signs of excess androgens (hirsutism, male-pattern hair thinning, severe acne) + metabolic indicators (weight gain resistance, acanthosis nigricans).
+  - Recommendation: Comprehensive evaluation including pelvic ultrasound and androgen blood panels.
+
+---
+
+## Combined Symptom Patterns (Triage Logic)
+
+- Pattern A (Severe Pain + Heavy Flow):
+  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.
+  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).
+
+- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):
+  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.
+  - Action: Immediate urgent medical evaluation required.
+
+- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):
+  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.
+  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.

@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+
+.venv/
+venv/
+
+.env
+
+chat_history/
+
+vectorstore/faiss_index/
+
+.streamlit/secrets.toml
+
+.DS_Store
+Thumbs.db
