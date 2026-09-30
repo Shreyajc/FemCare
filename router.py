@@ -87,9 +87,10 @@ def route(question):
 
     numbers = re.findall(r"\d+", q)
 
-    # Clinical assessment
-
-    if score >= 2 or len(numbers) >= 2:
+    # Personal symptom reports need a clinical assessment. General questions
+    # may mention several symptoms without describing the user's own health.
+    personal_report = bool(re.search(r"\b(?:i|i'm|i've|my|me)\b", q))
+    if (personal_report and (score >= 1 or numbers)) or (score >= 1 and len(numbers) >= 2):
         return "clinical"
 
     # General medical knowledge
