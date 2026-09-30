@@ -1,0 +1,5 @@
+weather_feature,pain_correlation
+temperature_mean,-0.0165
+humidity_mean,-0.0036
+precipitation,-0.002
+wind_speed_mean,0.0125

@@ -1,0 +1,11 @@
+search_food,fdc_id,food_name,data_type,iron_mg_100g,magnesium_mg_100g,vitamin_b6_mg_100g,fat_g_100g,fiber_g_100g,calcium_mg_100g,protein_g_100g,carbohydrates_g_100g,energy_kcal_100g,vitamin_b12_ug_100g
+spinach,1999632,"Spinach, baby",Foundation,1.26,92.9,0.195,0.619,1.56,68.4,2.85,2.41,20.7,
+lentils,2644283,"Lentils, dry",Foundation,7.16,107.0,,1.92,,61.8,23.6,62.2,351.0,
+chickpeas,2644282,"Chickpeas, (garbanzo beans, bengal gram), dry",Foundation,5.09,135.0,,6.27,,111.0,21.3,60.4,372.0,
+pumpkin seeds,2515380,"Seeds, pumpkin seeds (pepitas), raw",Foundation,8.36,500.0,,40.0,5.08,37.4,29.9,18.7,515.0,
+salmon,2684441,"Fish, salmon, Atlantic, farm raised, raw",Foundation,0.259,25.4,,13.1,,9.42,20.3,0.0,203.0,5.7
+yogurt,2647437,"Yogurt, plain, nonfat",Foundation,0.0,15.2,,0.0875,,167.0,4.23,8.08,50.1,
+banana,1105073,"Bananas, overripe, raw",Foundation,,,0.234,0.22,1.7,,0.73,20.1,357.0,
+almonds,2346393,"Nuts, almonds, whole, raw",Foundation,3.74,258.0,0.101,51.1,10.8,254.0,21.5,20.0,584.0,
+broccoli,747447,"Broccoli, raw",Foundation,0.69,21.0,0.191,0.34,2.4,46.0,2.57,6.27,31.0,
+egg,747997,"Eggs, Grade A, Large, egg white",Foundation,,,,0.0,,,10.7,2.36,55.0,

@@ -1,0 +1,65 @@
+system,id,set,question,expected,checks,source,response,response_time_seconds,correct,complete,relevant,hallucinated
+Before fusion,O1,Original,What is the normal range for menstrual cycle length?,A typical cycle is 21 to 35 days.,"[['21'], ['35'], ['day']]",knowledge/medical_faq.txt - Normal menstrual cycle length,"A normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next.",37.151,True,True,True,False
+Before fusion,O2,Original,What is PCOS and what menstrual pattern can it cause?,PCOS is a hormonal disorder that can cause irregular or absent menstrual cycles.,"[['hormonal'], ['irregular', 'absent'], ['cycle', 'period']]",knowledge/medical_faq.txt - What is PCOS,"Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.
+
+PCOS can cause irregular menstrual cycles, including infrequent, prolonged, or absent periods.",30.693,True,True,True,False
+Before fusion,O3,Original,What causes common menstrual cramps?,Uterine contractions driven by prostaglandins commonly cause menstrual cramps.,"[['prostaglandin'], ['contraction'], ['uter']]",knowledge/medical_faq.txt - Causes of menstrual cramps,Menstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping.,22.989,True,True,True,False
+Before fusion,O4,Original,How can high stress affect periods?,"High stress and cortisol can disrupt cycle hormones and cause delayed, irregular or missed periods.","[['stress', 'cortisol'], ['delay', 'irregular', 'missed'], ['period', 'cycle']]",knowledge/medical_faq.txt - Stress and periods,"High stress can disrupt the hypothalamus, leading to the release of cortisol, which can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea). This disruption can result in minor cycle shifts (2–5 days late/early) or heightened PMS symptoms, especially in cases of moderate to high stress. (Source: symptom_guidelines.txt)",33.361,True,True,True,False
+Before fusion,O5,Original,When should heavy menstrual bleeding receive medical attention?,Medical review is advised when bleeding soaks protection every hour for consecutive hours or is persistent or severe.,"[['hour'], ['medical', 'doctor', 'gynecologist', 'healthcare'], ['heavy', 'bleed', 'soak']]",knowledge/medical_faq.txt - Heavy menstrual bleeding and warning signs,"According to the available knowledge base, heavy menstrual bleeding should receive medical attention if it meets the following criteria:
+
+- Soaking through one or more pads/tampons every hour for consecutive hours
+- Needing double sanitary protection
+- Passing blood clots larger than a quarter
+
+Additionally, if any of the following emergency warning signs occur, seek immediate medical attention:
+
+- Sudden severe pelvic pain
+- Fainting or loss of consciousness
+- Heavy bleeding soaking through one pad every hour for several hours
+- Fever with pelvic pain
+- Severe abdominal pain after a missed period
+- Difficulty breathing or chest pain
+
+(Source: medical_faq.txt)",32.105,True,True,True,False
+Before fusion,F1,Fused API,What Census population and median household income are attached to California records?,"California has a Census population of 39,287,377 and median household income of $99,122.","[['39287377', '39,287,377'], ['99122', '99,122']]",California state summary derived from femcare_final_cleaned.csv,"I couldn't find enough information in the available knowledge base.
+
+No answer is available for this question.",26.625,False,False,True,False
+Before fusion,F2,Fused API,What CDC obesity and physical inactivity prevalence are attached to Texas records?,Texas has CDC obesity prevalence of 35.705% and physical inactivity prevalence of 27.917%.,"[['35.705'], ['27.917']]",Texas state summary derived from femcare_final_cleaned.csv,I couldn't find enough information in the available knowledge base.,14.694,False,False,True,False
+Before fusion,F3,Fused API,How strong is the relationship between mean temperature and menstrual pain in the fused dataset?,"The Pearson correlation is -0.0165, which is negligible.","[['-0.0165', '0.0165'], ['negligible', 'almost zero', 'very weak', 'close to zero']]",Phase 2 fused EDA weather and pain summary,I couldn't find enough information in the available knowledge base.,22.883,False,False,True,False
+Before fusion,F4,Fused API,"Which has higher average menstrual pain in the fused data, California or Texas?",California is higher: 5.321 compared with 4.277 for Texas.,"[['california'], ['5.321', '5.32'], ['4.277', '4.28']]",California and Texas summaries derived from femcare_final_cleaned.csv,I couldn't find enough information in the available knowledge base.,21.57,False,False,True,False
+Before fusion,F5,Fused API,What CDC depression prevalence and median household income are attached to Massachusetts records?,"Massachusetts has CDC depression prevalence of 23.835% and median household income of $103,960.","[['23.835'], ['103960', '103,960']]",Massachusetts state summary derived from femcare_final_cleaned.csv,I couldn't find enough information in the available knowledge base.,6.2,False,False,True,False
+After fusion,O1,Original,What is the normal range for menstrual cycle length?,A typical cycle is 21 to 35 days.,"[['21'], ['35'], ['day']]",knowledge/medical_faq.txt - Normal menstrual cycle length,"A normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next.",41.9,True,True,True,False
+After fusion,O2,Original,What is PCOS and what menstrual pattern can it cause?,PCOS is a hormonal disorder that can cause irregular or absent menstrual cycles.,"[['hormonal'], ['irregular', 'absent'], ['cycle', 'period']]",knowledge/medical_faq.txt - What is PCOS,"PCOS (Polycystic Ovary Syndrome) is a hormonal disorder that affects women of reproductive age. It is characterized by a combination of symptoms, including irregular menstrual cycles, excess androgen levels, and polycystic ovaries.
+
+PCOS can cause irregular menstrual patterns, including:
+
+- Irregular cycles
+- Absent periods (amenorrhea)
+
+It is recommended to have a comprehensive evaluation, including a pelvic ultrasound and androgen blood panels, to confirm the diagnosis.",44.795,True,True,True,False
+After fusion,O3,Original,What causes common menstrual cramps?,Uterine contractions driven by prostaglandins commonly cause menstrual cramps.,"[['prostaglandin'], ['contraction'], ['uter']]",knowledge/medical_faq.txt - Causes of menstrual cramps,Menstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping.,16.997,True,True,True,False
+After fusion,O4,Original,How can high stress affect periods?,"High stress and cortisol can disrupt cycle hormones and cause delayed, irregular or missed periods.","[['stress', 'cortisol'], ['delay', 'irregular', 'missed'], ['period', 'cycle']]",knowledge/medical_faq.txt - Stress and periods,"High stress can disrupt the hypothalamus, the region of the brain that regulates hormones responsible for the menstrual cycle, leading to delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).",19.891,True,True,True,False
+After fusion,O5,Original,When should heavy menstrual bleeding receive medical attention?,Medical review is advised when bleeding soaks protection every hour for consecutive hours or is persistent or severe.,"[['hour'], ['medical', 'doctor', 'gynecologist', 'healthcare'], ['heavy', 'bleed', 'soak']]",knowledge/medical_faq.txt - Heavy menstrual bleeding and warning signs,"According to the available knowledge base, heavy menstrual bleeding should receive medical attention if it meets the following criteria:
+
+- Soaking through one or more pads/tampons every hour for consecutive hours
+- Needing double sanitary protection
+- Passing blood clots larger than a quarter
+
+Additionally, if any of the following emergency warning signs occur, seek immediate medical attention:
+
+- Sudden severe pelvic pain
+- Fainting or loss of consciousness
+- Heavy bleeding soaking through one pad every hour for several hours
+- Fever with pelvic pain
+- Severe abdominal pain after a missed period
+- Difficulty breathing or chest pain
+
+(Source: medical_faq.txt)",21.718,True,True,True,False
+After fusion,F1,Fused API,What Census population and median household income are attached to California records?,"California has a Census population of 39,287,377 and median household income of $99,122.","[['39287377', '39,287,377'], ['99122', '99,122']]",California state summary derived from femcare_final_cleaned.csv,"Census population: 39,287,377
+Median household income: $99,122",41.552,True,True,True,False
+After fusion,F2,Fused API,What CDC obesity and physical inactivity prevalence are attached to Texas records?,Texas has CDC obesity prevalence of 35.705% and physical inactivity prevalence of 27.917%.,"[['35.705'], ['27.917']]",Texas state summary derived from femcare_final_cleaned.csv,"CDC obesity prevalence: 35.705 percent.
+CDC physical inactivity prevalence: 27.917 percent.",46.978,True,True,True,False
+After fusion,F3,Fused API,How strong is the relationship between mean temperature and menstrual pain in the fused dataset?,"The Pearson correlation is -0.0165, which is negligible.","[['-0.0165', '0.0165'], ['negligible', 'almost zero', 'very weak', 'close to zero']]",Phase 2 fused EDA weather and pain summary,"The relationship between mean temperature and menstrual pain in the fused dataset is negligible, with a Pearson correlation of -0.0165.",28.169,True,True,True,False
+After fusion,F4,Fused API,"Which has higher average menstrual pain in the fused data, California or Texas?",California is higher: 5.321 compared with 4.277 for Texas.,"[['california'], ['5.321', '5.32'], ['4.277', '4.28']]",California and Texas summaries derived from femcare_final_cleaned.csv,"California has a higher average menstrual pain of 5.321 compared to Texas, which has an average menstrual pain of 4.277.",45.872,True,True,True,False
+After fusion,F5,Fused API,What CDC depression prevalence and median household income are attached to Massachusetts records?,"Massachusetts has CDC depression prevalence of 23.835% and median household income of $103,960.","[['23.835'], ['103960', '103,960']]",Massachusetts state summary derived from femcare_final_cleaned.csv,"CDC depression prevalence: 23.835 percent.
+Median household income: $103,960.",50.325,True,True,True,False

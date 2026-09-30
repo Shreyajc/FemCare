@@ -1,0 +1,28 @@
+feature,category,count,percentage
+cycle_phase,Follicular,8092,45.02
+cycle_phase,Luteal,8068,44.88
+cycle_phase,Menstrual,1816,10.1
+flow_level,Moderate,8857,49.27
+flow_level,Light,6665,37.08
+flow_level,Heavy,2454,13.65
+pms_symptoms,No,12675,70.51
+pms_symptoms,Yes,5301,29.49
+ovulation_result,Positive,9730,54.13
+ovulation_result,Negative,8246,45.87
+diet_quality,Good,8458,47.05
+diet_quality,Average,6116,34.02
+diet_quality,Poor,1744,9.7
+diet_quality,Excellent,1658,9.22
+exercise_frequency,3–4 days/week,6595,36.69
+exercise_frequency,1–2 days/week,5332,29.66
+exercise_frequency,Not reported,3486,19.39
+exercise_frequency,5–6 days/week,2563,14.26
+alcohol_consumption,Never,8286,46.09
+alcohol_consumption,Occasionally,7836,43.59
+alcohol_consumption,Weekly,1854,10.31
+smoking_status,No,16015,89.09
+smoking_status,Yes,1961,10.91
+birth_control_use,0,11845,65.89
+birth_control_use,1,6131,34.11
+pcos_diagnosed,0,16498,91.78
+pcos_diagnosed,1,1478,8.22

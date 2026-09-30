@@ -1,0 +1,538 @@
+[
+  {
+    "system": "Before fusion",
+    "id": "O1",
+    "set": "Original",
+    "question": "What is the normal range for menstrual cycle length?",
+    "expected": "A typical cycle is 21 to 35 days.",
+    "checks": [
+      [
+        "21"
+      ],
+      [
+        "35"
+      ],
+      [
+        "day"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Normal menstrual cycle length",
+    "response": "A normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next.",
+    "retrieved_context": "Source: medical_faq.txt\nNormal menstrual cycle length\nA normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next. The actual bleeding phase usually lasts between 2 to 7 days. Cycle lengths can vary slightly between individuals and throughout a person's reproductive life.\n\nSource: symptom_guidelines.txt\nCycle Length Deviation\n- Normal (21\u201335 days):\n  - Regular baseline cycle length.\n\n- Mild Variance (Variation of 3\u20137 days month-to-month):\n  - Often related to acute stress, travel, illness, or diet changes; usually self-resolving.\n\n- Significant Variance (<21 days, >35 days, or missing 3+ consecutive cycles):\n  - Suggests potential underlying hormonal imbalance (e.g., PCOS, thyroid disorder, hypothalamic amenorrhea) requiring clinical follow-up.\n\n---\n\nSource: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: medical_faq.txt\nOvulation\nOvulation is the phase in the menstrual cycle when a mature egg is released from the ovary into the fallopian tube, making it available for fertilization. It typically occurs around 12 to 16 days before the start of the next period.\n\nSource: medical_faq.txt\nHormonal Balance\nThe menstrual cycle is regulated by coordinated interactions among estrogen, progesterone, luteinizing hormone (LH), and follicle-stimulating hormone (FSH). Disturbances in these hormones may result in irregular periods, ovulation problems, infertility, or abnormal bleeding.",
+    "response_time_seconds": 37.151,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "O2",
+    "set": "Original",
+    "question": "What is PCOS and what menstrual pattern can it cause?",
+    "expected": "PCOS is a hormonal disorder that can cause irregular or absent menstrual cycles.",
+    "checks": [
+      [
+        "hormonal"
+      ],
+      [
+        "irregular",
+        "absent"
+      ],
+      [
+        "cycle",
+        "period"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - What is PCOS",
+    "response": "Polycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nPCOS can cause irregular menstrual cycles, including infrequent, prolonged, or absent periods.",
+    "retrieved_context": "Source: medical_faq.txt\nWhat is PCOS?\nPolycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nSource: medical_faq.txt\nSymptoms of PCOS\nCommon symptoms of Polycystic Ovary Syndrome (PCOS) include:\n- Irregular, infrequent, or prolonged menstrual cycles\n- Excess facial and body hair (hirsutism)\n- Severe acne or oily skin\n- Thinning hair on the scalp\n- Weight gain or difficulty losing weight\n- Darkening of the skin along neck creases and groin (acanthosis nigricans)\n\nSource: medical_faq.txt\nStress and periods\nHigh physical or emotional stress triggers the release of cortisol, which can disrupt the hypothalamus\u2014the region of the brain that regulates hormones responsible for the menstrual cycle. This disruption can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).\n\nSource: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.\n\nSource: medical_faq.txt\nIron deficiency\nMenstrual blood loss is a leading cause of iron deficiency and iron-deficiency anemia in women of childbearing age. Symptoms include chronic fatigue, weakness, pale skin, cold hands and feet, and dizziness. Individuals with heavy periods should monitor their iron levels with a healthcare provider.",
+    "response_time_seconds": 30.693,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "O3",
+    "set": "Original",
+    "question": "What causes common menstrual cramps?",
+    "expected": "Uterine contractions driven by prostaglandins commonly cause menstrual cramps.",
+    "checks": [
+      [
+        "prostaglandin"
+      ],
+      [
+        "contraction"
+      ],
+      [
+        "uter"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Causes of menstrual cramps",
+    "response": "Menstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping.",
+    "retrieved_context": "Source: medical_faq.txt\nCauses of menstrual cramps\nMenstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping. Secondary causes may include underlying conditions like endometriosis, uterine fibroids, or adenomyosis.\n\nSource: medical_faq.txt\nLight menstrual bleeding\nLight menstrual bleeding (hypomenorrhea) occurs when period flow is significantly less than average. Common causes include hormonal contraception (such as birth control pills or hormonal IUDs), stress, rapid weight changes, low body fat, perimenopause, or conditions affecting thyroid function.\n\nSource: medical_faq.txt\nIrregular periods\nIrregular periods refer to menstrual cycles that are consistently shorter than 21 days, longer than 35 days, or vary wildly in length month-to-month. Causes include hormonal imbalances (like PCOS or thyroid disorders), high stress, extreme exercise, significant weight changes, or approaching perimenopause.\n\nSource: medical_faq.txt\nWhat is PCOS?\nPolycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nSource: medical_faq.txt\nSymptoms of PCOS\nCommon symptoms of Polycystic Ovary Syndrome (PCOS) include:\n- Irregular, infrequent, or prolonged menstrual cycles\n- Excess facial and body hair (hirsutism)\n- Severe acne or oily skin\n- Thinning hair on the scalp\n- Weight gain or difficulty losing weight\n- Darkening of the skin along neck creases and groin (acanthosis nigricans)",
+    "response_time_seconds": 22.989,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "O4",
+    "set": "Original",
+    "question": "How can high stress affect periods?",
+    "expected": "High stress and cortisol can disrupt cycle hormones and cause delayed, irregular or missed periods.",
+    "checks": [
+      [
+        "stress",
+        "cortisol"
+      ],
+      [
+        "delay",
+        "irregular",
+        "missed"
+      ],
+      [
+        "period",
+        "cycle"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Stress and periods",
+    "response": "High stress can disrupt the hypothalamus, leading to the release of cortisol, which can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea). This disruption can result in minor cycle shifts (2\u20135 days late/early) or heightened PMS symptoms, especially in cases of moderate to high stress. (Source: symptom_guidelines.txt)",
+    "retrieved_context": "Source: medical_faq.txt\nIrregular periods\nIrregular periods refer to menstrual cycles that are consistently shorter than 21 days, longer than 35 days, or vary wildly in length month-to-month. Causes include hormonal imbalances (like PCOS or thyroid disorders), high stress, extreme exercise, significant weight changes, or approaching perimenopause.\n\nSource: medical_faq.txt\nStress and periods\nHigh physical or emotional stress triggers the release of cortisol, which can disrupt the hypothalamus\u2014the region of the brain that regulates hormones responsible for the menstrual cycle. This disruption can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).\n\nSource: symptom_guidelines.txt\nStress Impact Interpretation\n- Low Impact:\n  - Description: Occasional daily stressors, temporary feeling of pressure.\n  - Hormonal Effect: Unlikely to alter cycle timing or flow.\n\n- Moderate Impact:\n  - Description: Prolonged stress over weeks, noticeable changes in sleep or mood.\n  - Hormonal Effect: May cause minor cycle shifts (2\u20135 days late/early) or heightened PMS symptoms.\n\n- High Impact:\n  - Description: Chronic high anxiety, severe life events, ongoing burnout.\n  - Hormonal Effect: High cortisol levels can delay or suppress ovulation, leading to missed periods (amenorrhea) or irregular spotting.\n\n---\n\nSource: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.\n\nSource: medical_faq.txt\nWhen to consult a gynecologist\nYou should consult a gynecologist if you experience:\n- Periods lasting longer than 8 days or soaking through protection every hour\n- Severe pain that isn't relieved by over-the-counter medication\n- Missed periods for 3 or more months (and you are not pregnant)\n- Bleeding between periods or after sexual intercourse\n- Cycles shorter than 21 days or longer than 35 days",
+    "response_time_seconds": 33.361,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "O5",
+    "set": "Original",
+    "question": "When should heavy menstrual bleeding receive medical attention?",
+    "expected": "Medical review is advised when bleeding soaks protection every hour for consecutive hours or is persistent or severe.",
+    "checks": [
+      [
+        "hour"
+      ],
+      [
+        "medical",
+        "doctor",
+        "gynecologist",
+        "healthcare"
+      ],
+      [
+        "heavy",
+        "bleed",
+        "soak"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Heavy menstrual bleeding and warning signs",
+    "response": "According to the available knowledge base, heavy menstrual bleeding should receive medical attention if it meets the following criteria:\n\n- Soaking through one or more pads/tampons every hour for consecutive hours\n- Needing double sanitary protection\n- Passing blood clots larger than a quarter\n\nAdditionally, if any of the following emergency warning signs occur, seek immediate medical attention:\n\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\n(Source: medical_faq.txt)",
+    "retrieved_context": "Source: medical_faq.txt\nHeavy menstrual bleeding\nHeavy menstrual bleeding (menorrhagia) is characterized by period flow that interferes with physical, emotional, or social quality of life. Indicators include soaking through one or more pads/tampons every hour for consecutive hours, needing double sanitary protection, or passing blood clots larger than a quarter.\n\nSource: medical_faq.txt\nEmergency Warning Signs\nSeek immediate medical attention if any of the following occur:\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\nSource: medical_faq.txt\nLight menstrual bleeding\nLight menstrual bleeding (hypomenorrhea) occurs when period flow is significantly less than average. Common causes include hormonal contraception (such as birth control pills or hormonal IUDs), stress, rapid weight changes, low body fat, perimenopause, or conditions affecting thyroid function.\n\nSource: medical_faq.txt\nMedical Disclaimer\nThis assistant provides educational information only.\nIt does not replace professional medical diagnosis, treatment, or emergency care.\nPersistent, worsening, or severe symptoms should always be evaluated by a qualified healthcare professional.\n\nSource: medical_faq.txt\nAdenomyosis\nAdenomyosis occurs when the tissue that normally lines the uterus (endometrium) grows into the muscular wall of the uterus (myometrium). The displaced tissue continues to act normally\u2014thickening, breaking down, and bleeding during each cycle\u2014resulting in an enlarged uterus, painful periods, and heavy bleeding.",
+    "response_time_seconds": 32.105,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "F1",
+    "set": "Fused API",
+    "question": "What Census population and median household income are attached to California records?",
+    "expected": "California has a Census population of 39,287,377 and median household income of $99,122.",
+    "checks": [
+      [
+        "39287377",
+        "39,287,377"
+      ],
+      [
+        "99122",
+        "99,122"
+      ]
+    ],
+    "source": "California state summary derived from femcare_final_cleaned.csv",
+    "response": "I couldn't find enough information in the available knowledge base.\n\nNo answer is available for this question.",
+    "retrieved_context": "Source: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.\n\nSource: medical_faq.txt\nNormal menstrual cycle length\nA normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next. The actual bleeding phase usually lasts between 2 to 7 days. Cycle lengths can vary slightly between individuals and throughout a person's reproductive life.\n\nSource: medical_faq.txt\nWhat is PCOS?\nPolycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nSource: medical_faq.txt\nSymptoms of PCOS\nCommon symptoms of Polycystic Ovary Syndrome (PCOS) include:\n- Irregular, infrequent, or prolonged menstrual cycles\n- Excess facial and body hair (hirsutism)\n- Severe acne or oily skin\n- Thinning hair on the scalp\n- Weight gain or difficulty losing weight\n- Darkening of the skin along neck creases and groin (acanthosis nigricans)",
+    "response_time_seconds": 26.625,
+    "correct": false,
+    "complete": false,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "F2",
+    "set": "Fused API",
+    "question": "What CDC obesity and physical inactivity prevalence are attached to Texas records?",
+    "expected": "Texas has CDC obesity prevalence of 35.705% and physical inactivity prevalence of 27.917%.",
+    "checks": [
+      [
+        "35.705"
+      ],
+      [
+        "27.917"
+      ]
+    ],
+    "source": "Texas state summary derived from femcare_final_cleaned.csv",
+    "response": "I couldn't find enough information in the available knowledge base.",
+    "retrieved_context": "Source: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: medical_faq.txt\nStress and periods\nHigh physical or emotional stress triggers the release of cortisol, which can disrupt the hypothalamus\u2014the region of the brain that regulates hormones responsible for the menstrual cycle. This disruption can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).\n\nSource: medical_faq.txt\nExercise during periods\nModerate physical activity during menstruation\u2014such as walking, yoga, swimming, or light cardio\u2014can help relieve period cramps and improve mood by releasing endorphins. It is advisable to listen to your body and adjust intensity levels based on fatigue or comfort.\n\nSource: medical_faq.txt\nPMS\nPremenstrual Syndrome (PMS) refers to a combination of physical and emotional symptoms that occur in the one to two weeks leading up to a period. Symptoms may include mood swings, bloating, breast tenderness, fatigue, irritability, and food cravings, which usually resolve shortly after bleeding starts.\n\nSource: medical_faq.txt\nHeavy menstrual bleeding\nHeavy menstrual bleeding (menorrhagia) is characterized by period flow that interferes with physical, emotional, or social quality of life. Indicators include soaking through one or more pads/tampons every hour for consecutive hours, needing double sanitary protection, or passing blood clots larger than a quarter.",
+    "response_time_seconds": 14.694,
+    "correct": false,
+    "complete": false,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "F3",
+    "set": "Fused API",
+    "question": "How strong is the relationship between mean temperature and menstrual pain in the fused dataset?",
+    "expected": "The Pearson correlation is -0.0165, which is negligible.",
+    "checks": [
+      [
+        "-0.0165",
+        "0.0165"
+      ],
+      [
+        "negligible",
+        "almost zero",
+        "very weak",
+        "close to zero"
+      ]
+    ],
+    "source": "Phase 2 fused EDA weather and pain summary",
+    "response": "I couldn't find enough information in the available knowledge base.",
+    "retrieved_context": "Source: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: medical_faq.txt\nEmergency Warning Signs\nSeek immediate medical attention if any of the following occur:\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\nSource: symptom_guidelines.txt\nPCOS Symptom Clusters\n- Low Likelihood Cluster:\n  - Single isolated symptom (e.g., mild acne alone with fully regular cycles).\n\n- Moderate Likelihood Cluster:\n  - Irregular cycles combined with one metabolic or dermatological sign (e.g., persistent acne or mild hirsutism).\n\n- High Likelihood Cluster:\n  - Classic triad or strong combination: Irregular/absent periods + clinical signs of excess androgens (hirsutism, male-pattern hair thinning, severe acne) + metabolic indicators (weight gain resistance, acanthosis nigricans).\n  - Recommendation: Comprehensive evaluation including pelvic ultrasound and androgen blood panels.\n\n---\n\nSource: symptom_guidelines.txt\nPain Level Interpretation\nScale: 0 to 10 numerical rating scale.\n\n- 0\u20133 (Mild):\n  - Description: Dull, noticeable, or periodic discomfort.\n  - Functional Impact: Normal daily activities are usually uninterrupted.\n  - Action: General home care, rest, or mild over-the-counter support as appropriate.\n\n- 4\u20136 (Moderate):\n  - Description: Persistent, noticeable pain or cramping.\n  - Functional Impact: Some daily activities become difficult or require modification.\n  - Action: Hydration, heat therapy, simple pain relief, and monitoring for pattern changes.\n\n- 7\u201310 (Severe):\n  - Description: Intense, sharp, disabling, or agonizing pain.\n  - Functional Impact: Inability to perform basic daily activities, sleep, or move comfortably.\n  - Action: Persistent or sudden severe pain warrants prompt evaluation by a healthcare provider or gynecologist.\n\n---\n\nSource: medical_faq.txt\nEndometriosis\nEndometriosis is a condition in which tissue similar to the lining of the uterus grows outside the uterine cavity, commonly on the ovaries, fallopian tubes, and pelvic tissues. This displaced tissue thickens, breaks down, and bleeds with each menstrual cycle, leading to pain, inflammation, and potential scar tissue formation.",
+    "response_time_seconds": 22.883,
+    "correct": false,
+    "complete": false,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "F4",
+    "set": "Fused API",
+    "question": "Which has higher average menstrual pain in the fused data, California or Texas?",
+    "expected": "California is higher: 5.321 compared with 4.277 for Texas.",
+    "checks": [
+      [
+        "california"
+      ],
+      [
+        "5.321",
+        "5.32"
+      ],
+      [
+        "4.277",
+        "4.28"
+      ]
+    ],
+    "source": "California and Texas summaries derived from femcare_final_cleaned.csv",
+    "response": "I couldn't find enough information in the available knowledge base.",
+    "retrieved_context": "Source: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: medical_faq.txt\nCauses of menstrual cramps\nMenstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping. Secondary causes may include underlying conditions like endometriosis, uterine fibroids, or adenomyosis.\n\nSource: medical_faq.txt\nLight menstrual bleeding\nLight menstrual bleeding (hypomenorrhea) occurs when period flow is significantly less than average. Common causes include hormonal contraception (such as birth control pills or hormonal IUDs), stress, rapid weight changes, low body fat, perimenopause, or conditions affecting thyroid function.\n\nSource: medical_faq.txt\nEmergency Warning Signs\nSeek immediate medical attention if any of the following occur:\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\nSource: symptom_guidelines.txt\nPain Level Interpretation\nScale: 0 to 10 numerical rating scale.\n\n- 0\u20133 (Mild):\n  - Description: Dull, noticeable, or periodic discomfort.\n  - Functional Impact: Normal daily activities are usually uninterrupted.\n  - Action: General home care, rest, or mild over-the-counter support as appropriate.\n\n- 4\u20136 (Moderate):\n  - Description: Persistent, noticeable pain or cramping.\n  - Functional Impact: Some daily activities become difficult or require modification.\n  - Action: Hydration, heat therapy, simple pain relief, and monitoring for pattern changes.\n\n- 7\u201310 (Severe):\n  - Description: Intense, sharp, disabling, or agonizing pain.\n  - Functional Impact: Inability to perform basic daily activities, sleep, or move comfortably.\n  - Action: Persistent or sudden severe pain warrants prompt evaluation by a healthcare provider or gynecologist.\n\n---",
+    "response_time_seconds": 21.57,
+    "correct": false,
+    "complete": false,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "Before fusion",
+    "id": "F5",
+    "set": "Fused API",
+    "question": "What CDC depression prevalence and median household income are attached to Massachusetts records?",
+    "expected": "Massachusetts has CDC depression prevalence of 23.835% and median household income of $103,960.",
+    "checks": [
+      [
+        "23.835"
+      ],
+      [
+        "103960",
+        "103,960"
+      ]
+    ],
+    "source": "Massachusetts state summary derived from femcare_final_cleaned.csv",
+    "response": "I couldn't find enough information in the available knowledge base.",
+    "retrieved_context": "Source: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.\n\nSource: medical_faq.txt\nNormal menstrual cycle length\nA normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next. The actual bleeding phase usually lasts between 2 to 7 days. Cycle lengths can vary slightly between individuals and throughout a person's reproductive life.\n\nSource: medical_faq.txt\nWhat is PCOS?\nPolycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nSource: medical_faq.txt\nSymptoms of PCOS\nCommon symptoms of Polycystic Ovary Syndrome (PCOS) include:\n- Irregular, infrequent, or prolonged menstrual cycles\n- Excess facial and body hair (hirsutism)\n- Severe acne or oily skin\n- Thinning hair on the scalp\n- Weight gain or difficulty losing weight\n- Darkening of the skin along neck creases and groin (acanthosis nigricans)",
+    "response_time_seconds": 6.2,
+    "correct": false,
+    "complete": false,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "O1",
+    "set": "Original",
+    "question": "What is the normal range for menstrual cycle length?",
+    "expected": "A typical cycle is 21 to 35 days.",
+    "checks": [
+      [
+        "21"
+      ],
+      [
+        "35"
+      ],
+      [
+        "day"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Normal menstrual cycle length",
+    "response": "A normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next.",
+    "retrieved_context": "Source: medical_faq.txt\nNormal menstrual cycle length\nA normal menstrual cycle typically ranges from 21 to 35 days, measured from the first day of one period to the first day of the next. The actual bleeding phase usually lasts between 2 to 7 days. Cycle lengths can vary slightly between individuals and throughout a person's reproductive life.\n\nSource: symptom_guidelines.txt\nFlow Intensity Interpretation\n- Light:\n  - Description: Spotting, minimal pad/tampon usage (1\u20132 light products/day), or lasting under 2 days.\n  - Context: Common with hormonal contraception, perimenopause, or early pregnancy; investigate if sudden or persistent.\n\n- Moderate:\n  - Description: Soaking 3\u20135 regular pads/tampons per day, lasting 3\u20137 days.\n  - Context: Normal physiological range for most individuals.\n\n- Heavy:\n  - Description: Soaking a high-absorbency pad/tampon every 1\u20132 hours for consecutive hours, passing large clots (>2.5 cm).\n  - Context: High risk for iron deficiency; requires medical evaluation if routine or accompanied by fatigue.\n\n---\n\nSource: symptom_guidelines.txt\nCycle Length Deviation\n- Normal (21\u201335 days):\n  - Regular baseline cycle length.\n\n- Mild Variance (Variation of 3\u20137 days month-to-month):\n  - Often related to acute stress, travel, illness, or diet changes; usually self-resolving.\n\n- Significant Variance (<21 days, >35 days, or missing 3+ consecutive cycles):\n  - Suggests potential underlying hormonal imbalance (e.g., PCOS, thyroid disorder, hypothalamic amenorrhea) requiring clinical follow-up.\n\n---\n\nSource: symptom_guidelines.txt\nPain Level Interpretation\nScale: 0 to 10 numerical rating scale.\n\n- 0\u20133 (Mild):\n  - Description: Dull, noticeable, or periodic discomfort.\n  - Functional Impact: Normal daily activities are usually uninterrupted.\n  - Action: General home care, rest, or mild over-the-counter support as appropriate.\n\n- 4\u20136 (Moderate):\n  - Description: Persistent, noticeable pain or cramping.\n  - Functional Impact: Some daily activities become difficult or require modification.\n  - Action: Hydration, heat therapy, simple pain relief, and monitoring for pattern changes.\n\n- 7\u201310 (Severe):\n  - Description: Intense, sharp, disabling, or agonizing pain.\n  - Functional Impact: Inability to perform basic daily activities, sleep, or move comfortably.\n  - Action: Persistent or sudden severe pain warrants prompt evaluation by a healthcare provider or gynecologist.\n\n---\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Kentucky|2024-04-06|cycle-3\nFused menstrual cycle record. State: Kentucky. Date: 2024-04-06. Cycle number: 3. Cycle length: 29 days. Pain: 3/10. Cycle stress: 4.4/10. Cycle sleep: 8.3 hours. Mood: 8. Flow: Moderate. PCOS diagnosed: 1. Temperature: 7.0 C. Humidity: 68.0 percent. Precipitation: 0.0. Wind speed: 7.6. State population: 4534824. Median household income: 63726 dollars. CDC obesity prevalence: 34.496 percent. CDC physical inactivity prevalence: 24.837 percent. CDC smoking prevalence: 13.199 percent. CDC depression prevalence: 22.68 percent.",
+    "response_time_seconds": 41.9,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "O2",
+    "set": "Original",
+    "question": "What is PCOS and what menstrual pattern can it cause?",
+    "expected": "PCOS is a hormonal disorder that can cause irregular or absent menstrual cycles.",
+    "checks": [
+      [
+        "hormonal"
+      ],
+      [
+        "irregular",
+        "absent"
+      ],
+      [
+        "cycle",
+        "period"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - What is PCOS",
+    "response": "PCOS (Polycystic Ovary Syndrome) is a hormonal disorder that affects women of reproductive age. It is characterized by a combination of symptoms, including irregular menstrual cycles, excess androgen levels, and polycystic ovaries.\n\nPCOS can cause irregular menstrual patterns, including:\n\n- Irregular cycles\n- Absent periods (amenorrhea)\n\nIt is recommended to have a comprehensive evaluation, including a pelvic ultrasound and androgen blood panels, to confirm the diagnosis.",
+    "retrieved_context": "Source: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.\n\nSource: medical_faq.txt\nStress and periods\nHigh physical or emotional stress triggers the release of cortisol, which can disrupt the hypothalamus\u2014the region of the brain that regulates hormones responsible for the menstrual cycle. This disruption can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).\n\nSource: medical_faq.txt\nIron deficiency\nMenstrual blood loss is a leading cause of iron deficiency and iron-deficiency anemia in women of childbearing age. Symptoms include chronic fatigue, weakness, pale skin, cold hands and feet, and dizziness. Individuals with heavy periods should monitor their iron levels with a healthcare provider.\n\nSource: symptom_guidelines.txt\nStress Impact Interpretation\n- Low Impact:\n  - Description: Occasional daily stressors, temporary feeling of pressure.\n  - Hormonal Effect: Unlikely to alter cycle timing or flow.\n\n- Moderate Impact:\n  - Description: Prolonged stress over weeks, noticeable changes in sleep or mood.\n  - Hormonal Effect: May cause minor cycle shifts (2\u20135 days late/early) or heightened PMS symptoms.\n\n- High Impact:\n  - Description: Chronic high anxiety, severe life events, ongoing burnout.\n  - Hormonal Effect: High cortisol levels can delay or suppress ovulation, leading to missed periods (amenorrhea) or irregular spotting.\n\n---\n\nSource: symptom_guidelines.txt\nPCOS Symptom Clusters\n- Low Likelihood Cluster:\n  - Single isolated symptom (e.g., mild acne alone with fully regular cycles).\n\n- Moderate Likelihood Cluster:\n  - Irregular cycles combined with one metabolic or dermatological sign (e.g., persistent acne or mild hirsutism).\n\n- High Likelihood Cluster:\n  - Classic triad or strong combination: Irregular/absent periods + clinical signs of excess androgens (hirsutism, male-pattern hair thinning, severe acne) + metabolic indicators (weight gain resistance, acanthosis nigricans).\n  - Recommendation: Comprehensive evaluation including pelvic ultrasound and androgen blood panels.\n\n---",
+    "response_time_seconds": 44.795,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "O3",
+    "set": "Original",
+    "question": "What causes common menstrual cramps?",
+    "expected": "Uterine contractions driven by prostaglandins commonly cause menstrual cramps.",
+    "checks": [
+      [
+        "prostaglandin"
+      ],
+      [
+        "contraction"
+      ],
+      [
+        "uter"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Causes of menstrual cramps",
+    "response": "Menstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping.",
+    "retrieved_context": "Source: medical_faq.txt\nCauses of menstrual cramps\nMenstrual cramps (dysmenorrhea) are caused by contractions in the uterine muscle driven by hormone-like substances called prostaglandins. Higher levels of prostaglandins are associated with more severe cramping. Secondary causes may include underlying conditions like endometriosis, uterine fibroids, or adenomyosis.\n\nSource: medical_faq.txt\nLight menstrual bleeding\nLight menstrual bleeding (hypomenorrhea) occurs when period flow is significantly less than average. Common causes include hormonal contraception (such as birth control pills or hormonal IUDs), stress, rapid weight changes, low body fat, perimenopause, or conditions affecting thyroid function.\n\nSource: medical_faq.txt\nExercise during periods\nModerate physical activity during menstruation\u2014such as walking, yoga, swimming, or light cardio\u2014can help relieve period cramps and improve mood by releasing endorphins. It is advisable to listen to your body and adjust intensity levels based on fatigue or comfort.\n\nSource: medical_faq.txt\nWhat is PCOS?\nPolycystic Ovary Syndrome (PCOS) is a common hormonal disorder affecting women of reproductive age. It is characterized by elevated levels of androgens (male hormones), irregular or absent menstrual cycles, and small fluid-filled sacs (follicles) on the ovaries observed via ultrasound.\n\nSource: medical_faq.txt\nIrregular periods\nIrregular periods refer to menstrual cycles that are consistently shorter than 21 days, longer than 35 days, or vary wildly in length month-to-month. Causes include hormonal imbalances (like PCOS or thyroid disorders), high stress, extreme exercise, significant weight changes, or approaching perimenopause.",
+    "response_time_seconds": 16.997,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "O4",
+    "set": "Original",
+    "question": "How can high stress affect periods?",
+    "expected": "High stress and cortisol can disrupt cycle hormones and cause delayed, irregular or missed periods.",
+    "checks": [
+      [
+        "stress",
+        "cortisol"
+      ],
+      [
+        "delay",
+        "irregular",
+        "missed"
+      ],
+      [
+        "period",
+        "cycle"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Stress and periods",
+    "response": "High stress can disrupt the hypothalamus, the region of the brain that regulates hormones responsible for the menstrual cycle, leading to delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).",
+    "retrieved_context": "Source: medical_faq.txt\nIrregular periods\nIrregular periods refer to menstrual cycles that are consistently shorter than 21 days, longer than 35 days, or vary wildly in length month-to-month. Causes include hormonal imbalances (like PCOS or thyroid disorders), high stress, extreme exercise, significant weight changes, or approaching perimenopause.\n\nSource: medical_faq.txt\nStress and periods\nHigh physical or emotional stress triggers the release of cortisol, which can disrupt the hypothalamus\u2014the region of the brain that regulates hormones responsible for the menstrual cycle. This disruption can cause delayed periods, irregular cycles, or temporarily missed periods (amenorrhea).\n\nSource: symptom_guidelines.txt\nStress Impact Interpretation\n- Low Impact:\n  - Description: Occasional daily stressors, temporary feeling of pressure.\n  - Hormonal Effect: Unlikely to alter cycle timing or flow.\n\n- Moderate Impact:\n  - Description: Prolonged stress over weeks, noticeable changes in sleep or mood.\n  - Hormonal Effect: May cause minor cycle shifts (2\u20135 days late/early) or heightened PMS symptoms.\n\n- High Impact:\n  - Description: Chronic high anxiety, severe life events, ongoing burnout.\n  - Hormonal Effect: High cortisol levels can delay or suppress ovulation, leading to missed periods (amenorrhea) or irregular spotting.\n\n---\n\nSource: medical_faq.txt\nWhen to consult a gynecologist\nYou should consult a gynecologist if you experience:\n- Periods lasting longer than 8 days or soaking through protection every hour\n- Severe pain that isn't relieved by over-the-counter medication\n- Missed periods for 3 or more months (and you are not pregnant)\n- Bleeding between periods or after sexual intercourse\n- Cycles shorter than 21 days or longer than 35 days\n\nSource: symptom_guidelines.txt\nCombined Symptom Patterns (Triage Logic)\n- Pattern A (Severe Pain + Heavy Flow):\n  - Clinical Note: Classic presentation for conditions like endometriosis, adenomyosis, or uterine fibroids.\n  - Action: Gynecological consultation recommended, especially if accompanied by signs of anemia (dizziness, severe fatigue).\n\n- Pattern B (Missed Period + Severe Unilateral Pelvic Pain):\n  - Clinical Note: Red-flag pattern; potential sign of an ectopic pregnancy or ruptured ovarian cyst.\n  - Action: Immediate urgent medical evaluation required.\n\n- Pattern C (Irregular Cycles + High Stress + Sleep Disruption):\n  - Clinical Note: Functional hypothalamic disturbance or HPA-axis dysregulation.\n  - Action: Lifestyle, sleep hygiene, and stress mitigation, alongside baseline hormonal blood work if persistent.",
+    "response_time_seconds": 19.891,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "O5",
+    "set": "Original",
+    "question": "When should heavy menstrual bleeding receive medical attention?",
+    "expected": "Medical review is advised when bleeding soaks protection every hour for consecutive hours or is persistent or severe.",
+    "checks": [
+      [
+        "hour"
+      ],
+      [
+        "medical",
+        "doctor",
+        "gynecologist",
+        "healthcare"
+      ],
+      [
+        "heavy",
+        "bleed",
+        "soak"
+      ]
+    ],
+    "source": "knowledge/medical_faq.txt - Heavy menstrual bleeding and warning signs",
+    "response": "According to the available knowledge base, heavy menstrual bleeding should receive medical attention if it meets the following criteria:\n\n- Soaking through one or more pads/tampons every hour for consecutive hours\n- Needing double sanitary protection\n- Passing blood clots larger than a quarter\n\nAdditionally, if any of the following emergency warning signs occur, seek immediate medical attention:\n\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\n(Source: medical_faq.txt)",
+    "retrieved_context": "Source: medical_faq.txt\nHeavy menstrual bleeding\nHeavy menstrual bleeding (menorrhagia) is characterized by period flow that interferes with physical, emotional, or social quality of life. Indicators include soaking through one or more pads/tampons every hour for consecutive hours, needing double sanitary protection, or passing blood clots larger than a quarter.\n\nSource: medical_faq.txt\nEmergency Warning Signs\nSeek immediate medical attention if any of the following occur:\n- Sudden severe pelvic pain\n- Fainting or loss of consciousness\n- Heavy bleeding soaking through one pad every hour for several hours\n- Fever with pelvic pain\n- Severe abdominal pain after a missed period\n- Difficulty breathing or chest pain\n\nSource: medical_faq.txt\nLight menstrual bleeding\nLight menstrual bleeding (hypomenorrhea) occurs when period flow is significantly less than average. Common causes include hormonal contraception (such as birth control pills or hormonal IUDs), stress, rapid weight changes, low body fat, perimenopause, or conditions affecting thyroid function.\n\nSource: medical_faq.txt\nMedical Disclaimer\nThis assistant provides educational information only.\nIt does not replace professional medical diagnosis, treatment, or emergency care.\nPersistent, worsening, or severe symptoms should always be evaluated by a qualified healthcare professional.\n\nSource: medical_faq.txt\nAdenomyosis\nAdenomyosis occurs when the tissue that normally lines the uterus (endometrium) grows into the muscular wall of the uterus (myometrium). The displaced tissue continues to act normally\u2014thickening, breaking down, and bleeding during each cycle\u2014resulting in an enlarged uterus, painful periods, and heavy bleeding.",
+    "response_time_seconds": 21.718,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "F1",
+    "set": "Fused API",
+    "question": "What Census population and median household income are attached to California records?",
+    "expected": "California has a Census population of 39,287,377 and median household income of $99,122.",
+    "checks": [
+      [
+        "39287377",
+        "39,287,377"
+      ],
+      [
+        "99122",
+        "99,122"
+      ]
+    ],
+    "source": "California state summary derived from femcare_final_cleaned.csv",
+    "response": "Census population: 39,287,377\nMedian household income: $99,122",
+    "retrieved_context": "Source: state summary derived from femcare_final_cleaned.csv | Record: California\nFused state summary for California. Cycle records: 364. Census total population: 39,287,377. Census female population: 19,664,026. Census female population age 20 to 24: 1,240,811. Age 25 to 29: 1,366,482. Age 30 to 34: 1,463,195. Median household income: $99,122. CDC obesity prevalence: 27.964 percent. CDC physical inactivity prevalence: 24.729 percent. CDC smoking prevalence: 10.932 percent. CDC depression prevalence: 20.156 percent. Average menstrual pain: 5.321. Average cycle stress: 5.886. Average temperature: 18.484 C. Average humidity: 59.044 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Alaska\nFused state summary for Alaska. Cycle records: 373. Census total population: 735,706. Census female population: 349,326. Census female population age 20 to 24: 21,530. Age 25 to 29: 24,824. Age 30 to 34: 27,683. Median household income: $92,788. CDC obesity prevalence: 35.546 percent. CDC physical inactivity prevalence: 21.783 percent. CDC smoking prevalence: 16.207 percent. CDC depression prevalence: 20.729 percent. Average menstrual pain: 5.139. Average cycle stress: 6.020. Average temperature: 6.123 C. Average humidity: 80.887 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Missouri\nFused state summary for Missouri. Cycle records: 425. Census total population: 6,191,814. Census female population: 3,139,370. Census female population age 20 to 24: 199,545. Age 25 to 29: 198,829. Age 30 to 34: 208,409. Median household income: $70,702. CDC obesity prevalence: 36.643 percent. CDC physical inactivity prevalence: 28.798 percent. CDC smoking prevalence: 15.995 percent. CDC depression prevalence: 24.353 percent. Average menstrual pain: 4.779. Average cycle stress: 5.589. Average temperature: 17.049 C. Average humidity: 67.887 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Wyoming\nFused state summary for Wyoming. Cycle records: 327. Census total population: 582,397. Census female population: 284,836. Census female population age 20 to 24: 17,209. Age 25 to 29: 16,764. Age 30 to 34: 18,535. Median household income: $76,176. CDC obesity prevalence: 33.816 percent. CDC physical inactivity prevalence: 25.648 percent. CDC smoking prevalence: 14.049 percent. CDC depression prevalence: 21.638 percent. Average menstrual pain: 5.083. Average cycle stress: 6.145. Average temperature: 11.062 C. Average humidity: 46.309 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Hawaii\nFused state summary for Hawaii. Cycle records: 388. Census total population: 1,445,235. Census female population: 719,236. Census female population age 20 to 24: 38,748. Age 25 to 29: 44,184. Age 30 to 34: 48,270. Median household income: $100,389. CDC obesity prevalence: 25.607 percent. CDC physical inactivity prevalence: 23.003 percent. CDC smoking prevalence: 10.982 percent. CDC depression prevalence: 15.956 percent. Average menstrual pain: 4.804. Average cycle stress: 5.662. Average temperature: 23.806 C. Average humidity: 72.549 percent.",
+    "response_time_seconds": 41.552,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "F2",
+    "set": "Fused API",
+    "question": "What CDC obesity and physical inactivity prevalence are attached to Texas records?",
+    "expected": "Texas has CDC obesity prevalence of 35.705% and physical inactivity prevalence of 27.917%.",
+    "checks": [
+      [
+        "35.705"
+      ],
+      [
+        "27.917"
+      ]
+    ],
+    "source": "Texas state summary derived from femcare_final_cleaned.csv",
+    "response": "CDC obesity prevalence: 35.705 percent.\nCDC physical inactivity prevalence: 27.917 percent.",
+    "retrieved_context": "Source: data/api_fusion/final/femcare_final_cleaned.csv | Record: Texas|2024-06-10|cycle-4\nFused menstrual cycle record. State: Texas. Date: 2024-06-10. Cycle number: 4. Cycle length: 28 days. Pain: 4/10. Cycle stress: 5.2/10. Cycle sleep: 8.6 hours. Mood: 8. Flow: Moderate. PCOS diagnosed: 0. Temperature: 27.0 C. Humidity: 76.0 percent. Precipitation: 2.7. Wind speed: 7.8. State population: 30188424. Median household income: 78476 dollars. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.54 percent. CDC depression prevalence: 21.159 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Texas|2024-07-24|cycle-7\nFused menstrual cycle record. State: Texas. Date: 2024-07-24. Cycle number: 7. Cycle length: 28 days. Pain: 5/10. Cycle stress: 5.4/10. Cycle sleep: 6.1 hours. Mood: 7. Flow: Moderate. PCOS diagnosed: 1. Temperature: 25.5 C. Humidity: 83.0 percent. Precipitation: 0.9. Wind speed: 6.7. State population: 30188424. Median household income: 78476 dollars. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.54 percent. CDC depression prevalence: 21.159 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Texas|2024-01-28|cycle-2\nFused menstrual cycle record. State: Texas. Date: 2024-01-28. Cycle number: 2. Cycle length: 28 days. Pain: 2/10. Cycle stress: 2.2/10. Cycle sleep: 8.6 hours. Mood: 9. Flow: Moderate. PCOS diagnosed: 1. Temperature: 9.6 C. Humidity: 73.0 percent. Precipitation: 0.0. Wind speed: 8.0. State population: 30188424. Median household income: 78476 dollars. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.54 percent. CDC depression prevalence: 21.159 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Texas|2024-07-27|cycle-6\nFused menstrual cycle record. State: Texas. Date: 2024-07-27. Cycle number: 6. Cycle length: 28 days. Pain: 1/10. Cycle stress: 3.3/10. Cycle sleep: 8.8 hours. Mood: 9. Flow: Light. PCOS diagnosed: 0. Temperature: 25.5 C. Humidity: 81.0 percent. Precipitation: 1.6. Wind speed: 9.8. State population: 30188424. Median household income: 78476 dollars. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.54 percent. CDC depression prevalence: 21.159 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Texas|2024-03-20|cycle-2\nFused menstrual cycle record. State: Texas. Date: 2024-03-20. Cycle number: 2. Cycle length: 28 days. Pain: 4/10. Cycle stress: 4.5/10. Cycle sleep: 6.0 hours. Mood: 7. Flow: Moderate. PCOS diagnosed: 0. Temperature: 14.0 C. Humidity: 71.0 percent. Precipitation: 0.0. Wind speed: 9.8. State population: 30188424. Median household income: 78476 dollars. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.54 percent. CDC depression prevalence: 21.159 percent.",
+    "response_time_seconds": 46.978,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "F3",
+    "set": "Fused API",
+    "question": "How strong is the relationship between mean temperature and menstrual pain in the fused dataset?",
+    "expected": "The Pearson correlation is -0.0165, which is negligible.",
+    "checks": [
+      [
+        "-0.0165",
+        "0.0165"
+      ],
+      [
+        "negligible",
+        "almost zero",
+        "very weak",
+        "close to zero"
+      ]
+    ],
+    "source": "Phase 2 fused EDA weather and pain summary",
+    "response": "The relationship between mean temperature and menstrual pain in the fused dataset is negligible, with a Pearson correlation of -0.0165.",
+    "retrieved_context": "Source: Phase 2 dataset profile\nPhase 2 fused dataset overview. The final cleaned fused dataset contains 17,976 rows, 56 columns, 2,000 users and 50 states. It retains 34 original menstrual attributes, adds 7 Census attributes, 7 CDC PLACES attributes, 6 Open-Meteo attributes, and 2 cleaning flags. Fusion added state population, reproductive-age female population, median household income, obesity, physical inactivity, smoking, depression, temperature, humidity, precipitation and wind information.\n\nSource: Phase 2 fused EDA\nPhase 2 weather and pain findings. Pearson correlations with menstrual pain are temperature -0.0165, humidity -0.0036, precipitation -0.0020, and wind speed 0.0125. All four relationships are negligible in this dataset and do not support a causal claim.\n\nSource: data/menstrual_dataset.csv\nOriginal FemCare dataset summary. The dataset contains 17,976 menstrual-cycle records for 2,000 users across 50 US states. Average cycle length is 27.817 days, average pain is 4.854 out of 10, and average cycle stress is 5.749 out of 10. The original dataset contains cycle, symptom, hormone, wellness and lifestyle fields, but it does not contain Census, CDC PLACES or weather attributes.\n\nSource: symptom_guidelines.txt\nPCOS Symptom Clusters\n- Low Likelihood Cluster:\n  - Single isolated symptom (e.g., mild acne alone with fully regular cycles).\n\n- Moderate Likelihood Cluster:\n  - Irregular cycles combined with one metabolic or dermatological sign (e.g., persistent acne or mild hirsutism).\n\n- High Likelihood Cluster:\n  - Classic triad or strong combination: Irregular/absent periods + clinical signs of excess androgens (hirsutism, male-pattern hair thinning, severe acne) + metabolic indicators (weight gain resistance, acanthosis nigricans).\n  - Recommendation: Comprehensive evaluation including pelvic ultrasound and androgen blood panels.\n\n---\n\nSource: Phase 2 fused EDA\nPhase 2 state-level findings. CDC depression prevalence versus average cycle stress has Pearson correlation 0.0080. CDC physical inactivity versus average menstrual pain has Pearson correlation -0.0862. CDC obesity and Census median household income have Pearson correlation -0.7496. These are ecological state-level relationships and are not individual clinical effects.",
+    "response_time_seconds": 28.169,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "F4",
+    "set": "Fused API",
+    "question": "Which has higher average menstrual pain in the fused data, California or Texas?",
+    "expected": "California is higher: 5.321 compared with 4.277 for Texas.",
+    "checks": [
+      [
+        "california"
+      ],
+      [
+        "5.321",
+        "5.32"
+      ],
+      [
+        "4.277",
+        "4.28"
+      ]
+    ],
+    "source": "California and Texas summaries derived from femcare_final_cleaned.csv",
+    "response": "California has a higher average menstrual pain of 5.321 compared to Texas, which has an average menstrual pain of 4.277.",
+    "retrieved_context": "Source: state summary derived from femcare_final_cleaned.csv | Record: Texas\nFused state summary for Texas. Cycle records: 264. Census total population: 30,188,424. Census female population: 15,122,467. Census female population age 20 to 24: 1,016,327. Age 25 to 29: 1,055,507. Age 30 to 34: 1,094,932. Median household income: $78,476. CDC obesity prevalence: 35.705 percent. CDC physical inactivity prevalence: 27.917 percent. CDC smoking prevalence: 12.540 percent. CDC depression prevalence: 21.159 percent. Average menstrual pain: 4.277. Average cycle stress: 5.253. Average temperature: 23.199 C. Average humidity: 68.814 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: California\nFused state summary for California. Cycle records: 364. Census total population: 39,287,377. Census female population: 19,664,026. Census female population age 20 to 24: 1,240,811. Age 25 to 29: 1,366,482. Age 30 to 34: 1,463,195. Median household income: $99,122. CDC obesity prevalence: 27.964 percent. CDC physical inactivity prevalence: 24.729 percent. CDC smoking prevalence: 10.932 percent. CDC depression prevalence: 20.156 percent. Average menstrual pain: 5.321. Average cycle stress: 5.886. Average temperature: 18.484 C. Average humidity: 59.044 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Alaska\nFused state summary for Alaska. Cycle records: 373. Census total population: 735,706. Census female population: 349,326. Census female population age 20 to 24: 21,530. Age 25 to 29: 24,824. Age 30 to 34: 27,683. Median household income: $92,788. CDC obesity prevalence: 35.546 percent. CDC physical inactivity prevalence: 21.783 percent. CDC smoking prevalence: 16.207 percent. CDC depression prevalence: 20.729 percent. Average menstrual pain: 5.139. Average cycle stress: 6.020. Average temperature: 6.123 C. Average humidity: 80.887 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Missouri\nFused state summary for Missouri. Cycle records: 425. Census total population: 6,191,814. Census female population: 3,139,370. Census female population age 20 to 24: 199,545. Age 25 to 29: 198,829. Age 30 to 34: 208,409. Median household income: $70,702. CDC obesity prevalence: 36.643 percent. CDC physical inactivity prevalence: 28.798 percent. CDC smoking prevalence: 15.995 percent. CDC depression prevalence: 24.353 percent. Average menstrual pain: 4.779. Average cycle stress: 5.589. Average temperature: 17.049 C. Average humidity: 67.887 percent.\n\nSource: state summary derived from femcare_final_cleaned.csv | Record: Wyoming\nFused state summary for Wyoming. Cycle records: 327. Census total population: 582,397. Census female population: 284,836. Census female population age 20 to 24: 17,209. Age 25 to 29: 16,764. Age 30 to 34: 18,535. Median household income: $76,176. CDC obesity prevalence: 33.816 percent. CDC physical inactivity prevalence: 25.648 percent. CDC smoking prevalence: 14.049 percent. CDC depression prevalence: 21.638 percent. Average menstrual pain: 5.083. Average cycle stress: 6.145. Average temperature: 11.062 C. Average humidity: 46.309 percent.",
+    "response_time_seconds": 45.872,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  },
+  {
+    "system": "After fusion",
+    "id": "F5",
+    "set": "Fused API",
+    "question": "What CDC depression prevalence and median household income are attached to Massachusetts records?",
+    "expected": "Massachusetts has CDC depression prevalence of 23.835% and median household income of $103,960.",
+    "checks": [
+      [
+        "23.835"
+      ],
+      [
+        "103960",
+        "103,960"
+      ]
+    ],
+    "source": "Massachusetts state summary derived from femcare_final_cleaned.csv",
+    "response": "CDC depression prevalence: 23.835 percent.\nMedian household income: $103,960.",
+    "retrieved_context": "Source: data/api_fusion/final/femcare_final_cleaned.csv | Record: Massachusetts|2024-04-10|cycle-2\nFused menstrual cycle record. State: Massachusetts. Date: 2024-04-10. Cycle number: 2. Cycle length: 25 days. Pain: 2/10. Cycle stress: 6.1/10. Cycle sleep: 7.1 hours. Mood: 7. Flow: Light. PCOS diagnosed: 0. Temperature: 9.2 C. Humidity: 77.0 percent. Precipitation: 0.8. Wind speed: 8.6. State population: 7044056. Median household income: 103960 dollars. CDC obesity prevalence: 27.708 percent. CDC physical inactivity prevalence: 21.699 percent. CDC smoking prevalence: 11.306 percent. CDC depression prevalence: 23.835 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Massachusetts|2024-03-16|cycle-2\nFused menstrual cycle record. State: Massachusetts. Date: 2024-03-16. Cycle number: 2. Cycle length: 28 days. Pain: 4/10. Cycle stress: 4.1/10. Cycle sleep: 5.1 hours. Mood: 8. Flow: Moderate. PCOS diagnosed: 0. Temperature: 6.8 C. Humidity: 74.0 percent. Precipitation: 0.4. Wind speed: 9.2. State population: 7044056. Median household income: 103960 dollars. CDC obesity prevalence: 27.708 percent. CDC physical inactivity prevalence: 21.699 percent. CDC smoking prevalence: 11.306 percent. CDC depression prevalence: 23.835 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Massachusetts|2024-05-10|cycle-5\nFused menstrual cycle record. State: Massachusetts. Date: 2024-05-10. Cycle number: 5. Cycle length: 28 days. Pain: 2/10. Cycle stress: 1.0/10. Cycle sleep: 7.6 hours. Mood: 9. Flow: Moderate. PCOS diagnosed: 0. Temperature: 9.7 C. Humidity: 74.0 percent. Precipitation: 0.6. Wind speed: 12.7. State population: 7044056. Median household income: 103960 dollars. CDC obesity prevalence: 27.708 percent. CDC physical inactivity prevalence: 21.699 percent. CDC smoking prevalence: 11.306 percent. CDC depression prevalence: 23.835 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Massachusetts|2024-02-12|cycle-2\nFused menstrual cycle record. State: Massachusetts. Date: 2024-02-12. Cycle number: 2. Cycle length: 28 days. Pain: 4/10. Cycle stress: 4.2/10. Cycle sleep: 6.9 hours. Mood: 7. Flow: Moderate. PCOS diagnosed: 0. Temperature: 2.0 C. Humidity: 73.0 percent. Precipitation: 0.0. Wind speed: 7.6. State population: 7044056. Median household income: 103960 dollars. CDC obesity prevalence: 27.708 percent. CDC physical inactivity prevalence: 21.699 percent. CDC smoking prevalence: 11.306 percent. CDC depression prevalence: 23.835 percent.\n\nSource: data/api_fusion/final/femcare_final_cleaned.csv | Record: Massachusetts|2024-05-10|cycle-4\nFused menstrual cycle record. State: Massachusetts. Date: 2024-05-10. Cycle number: 4. Cycle length: 27 days. Pain: 4/10. Cycle stress: 3.5/10. Cycle sleep: 5.2 hours. Mood: 9. Flow: Moderate. PCOS diagnosed: 0. Temperature: 9.7 C. Humidity: 74.0 percent. Precipitation: 0.6. Wind speed: 12.7. State population: 7044056. Median household income: 103960 dollars. CDC obesity prevalence: 27.708 percent. CDC physical inactivity prevalence: 21.699 percent. CDC smoking prevalence: 11.306 percent. CDC depression prevalence: 23.835 percent.",
+    "response_time_seconds": 50.325,
+    "correct": true,
+    "complete": true,
+    "relevant": true,
+    "hallucinated": false
+  }
+]

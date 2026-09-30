@@ -2,8 +2,13 @@ import pandas as pd
 import plotly.express as px
 
 
+# def load_data():
+#     return pd.read_csv("data/cleaned_dataset.csv")
+
 def load_data():
-    return pd.read_csv("data/cleaned_dataset.csv")
+    return pd.read_csv(
+        "data/api_fusion/final/femcare_final_cleaned.csv"
+    )
 
 
 def get_metrics(df):

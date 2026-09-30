@@ -1,0 +1,6 @@
+{
+  "question": "What Census population and median household income are attached to California records?",
+  "retrieved_source": "California state summary derived from femcare_final_cleaned.csv",
+  "answer": "Census population: 39,287,377\nMedian household income: $99,122",
+  "correct": true
+}

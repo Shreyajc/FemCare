@@ -1,4 +1,10 @@
-import ollama
+import json
+import urllib.request
+
+try:
+    import ollama
+except ImportError:
+    ollama = None
 
 MODEL = "llama3.2:3b"
 
@@ -78,24 +84,23 @@ Question
 Provide a clear, professional answer suitable for a patient.
 """
 
-    response = ollama.chat(
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": question},
+    ]
 
-        model=MODEL,
+    if ollama is not None:
+        response = ollama.chat(model=MODEL, messages=messages)
+        return response["message"]["content"]
 
-        messages=[
-
-            {
-                "role": "system",
-                "content": system_prompt
-            },
-
-            {
-                "role": "user",
-                "content": question
-            }
-
-        ]
-
+    payload = json.dumps(
+        {"model": MODEL, "messages": messages, "stream": False}
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        "http://localhost:11434/api/chat",
+        data=payload,
+        headers={"Content-Type": "application/json"},
     )
-
-    return response["message"]["content"]
+    with urllib.request.urlopen(request, timeout=180) as response:
+        result = json.loads(response.read().decode("utf-8"))
+    return result["message"]["content"]

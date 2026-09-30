@@ -1,0 +1,26 @@
+{
+  "original_index": {
+    "path": "vectorstore\\phase2_original_index\\index.joblib",
+    "documents": 32,
+    "features": 1655,
+    "non_zero_values": 2198
+  },
+  "fused_index": {
+    "path": "vectorstore\\phase2_fused_index\\index.joblib",
+    "documents": 18061,
+    "features": 5708,
+    "non_zero_values": 2169045
+  },
+  "document_counts": {
+    "medical_knowledge": 31,
+    "original_dataset_summary": 1,
+    "fusion_analysis_summaries": 3,
+    "state_summaries": 50,
+    "fused_cycle_records": 17976
+  },
+  "excluded_from_text": [
+    "user_id",
+    "latitude",
+    "longitude"
+  ]
+}

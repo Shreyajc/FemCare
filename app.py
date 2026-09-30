@@ -2,6 +2,8 @@ import io
 from datetime import datetime
 
 import streamlit as st
+import pandas as pd
+from pathlib import Path
 from analytics.dashboard import (
     cycle_chart,
     flow_chart,
@@ -11,8 +13,24 @@ from analytics.dashboard import (
     stress_chart,
 )
 
+from scripts.api_overpass_search import find_healthcare
+
+from analytics.eda import (
+    get_dataset_overview,
+    get_missing_summary,
+    get_numeric_summary,
+    get_category_distribution,
+    get_pain_relationship,
+    get_lifestyle_analysis,
+    get_weather_correlation,
+    get_state_analysis,
+    get_correlation_matrix,
+    get_pain_correlations,
+    get_fusion_feature_groups,
+)
+
 from rag.llm import ask_llm
-from rag.retriever import retrieve_context
+from rag.phase2_retriever import retrieve_context
 from router import route
 from utils.chat_history import (
     delete_chat,
@@ -23,6 +41,15 @@ from utils.chat_history import (
     save_chat,
 )
 from utils.clinical_engine import analyze
+
+from utils.nutrition import (
+    load_recipes,
+    filter_recipes,
+    load_usda_foods,
+    get_usda_food_names,
+    get_food_record,
+    format_nutrient,
+)
 
 # -----------------------------------------------------------------------------
 # 1. PAGE CONFIG & CUSTOM CSS STYLING
@@ -139,16 +166,19 @@ with st.sidebar:
     st.divider()
 
     page = st.radio(
-        "Navigation",
-        [
-            "💬 Chat",
-            "🕒 History",
-            "📊 Analytics",
-            "📁 Dataset Info",
-            "ℹ️ About",
-        ],
-        label_visibility="collapsed",
-    )
+    "Navigation",
+    [
+        "💬 Chat",
+        "🕒 History",
+        "📊 EDA & Analytics",
+        "🔗 Data Fusion",
+        "🗃️ Complete Dataset",
+        "🏥 Healthcare Finder",
+        "🍎 Nutrition Guide",
+        "ℹ️ About",
+    ],
+    label_visibility="collapsed",
+)
 
     st.divider()
 
@@ -157,8 +187,8 @@ with st.sidebar:
         """
         <div>
             <div class="status-badge">🤖 <b>LLM:</b> Llama 3.2</div>
-            <div class="status-badge">🔍 <b>Embedding:</b> MiniLM</div>
-            <div class="status-badge">⚡ <b>Vector DB:</b> FAISS</div>
+            <div class="status-badge">🔍 <b>Vectorizer:</b> TF-IDF</div>
+            <div class="status-badge">⚡ <b>Knowledge Base:</b> Fused Index</div>
             <div class="status-badge">📚 <b>RAG:</b> Enabled</div>
         </div>
     """,
@@ -467,109 +497,1566 @@ elif page == "🕒 History":
                 st.markdown(msg["content"])
 
 
-# --- PAGE 3: ANALYTICS ---
-elif page == "📊 Analytics":
-    st.title("📊 Menstrual Health Analytics")
-    st.caption("Aggregated analytics and statistical trends from platform data")
-    st.divider()
+# --- PAGE 3: EDA & ANALYTICS ---
 
-    st.subheader("📌 General Overview")
+elif page == "📊 EDA & Analytics":
+
+    st.title("📊 FemCare EDA & Analytics")
+    st.caption(
+        "Exploratory Data Analysis of the final fused menstrual-health dataset"
+    )
+
+    eda_df = df
+
+    overview = get_dataset_overview(eda_df)
+
+    # ============================================================
+    # OVERVIEW
+    # ============================================================
+
+    st.subheader("📌 Dataset Overview")
+
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Records", f"{metrics['Total Records']:,}")
-    c2.metric("Users", f"{metrics['Unique Users']:,}")
-    c3.metric("Average Age", f"{metrics['Average Age']} yrs")
-    c4.metric("Average BMI", metrics["Average BMI"])
 
-    st.write("")
+    c1.metric(
+        "Records",
+        f"{overview['records']:,}"
+    )
 
-    st.subheader("🩺 Clinical Indicators")
-    c5, c6, c7, c8 = st.columns(4)
-    c5.metric("Cycle Length", f"{metrics['Average Cycle Length']} days")
-    c6.metric("Pain Level", f"{metrics['Average Pain']}/10")
-    c7.metric("Stress Level", f"{metrics['Average Stress']}/10")
-    c8.metric("PCOS Cases", f"{metrics['PCOS Cases']:,}")
+    c2.metric(
+        "Users",
+        f"{overview['users']:,}"
+    )
+
+    c3.metric(
+        "States",
+        overview["states"]
+    )
+
+    c4.metric(
+        "Features",
+        overview["features"]
+    )
 
     st.divider()
 
-    st.subheader("📈 Trend Visualizations")
+    # ============================================================
+    # EXISTING BASIC ANALYTICS
+    # ============================================================
+
+    st.subheader("📈 Menstrual Health Trends")
 
     left, right = st.columns(2)
+
     with left:
-        with st.container(border=True):
-            st.plotly_chart(cycle_chart(df), use_container_width=True)
-
-    with right:
-        with st.container(border=True):
-            st.plotly_chart(pain_chart(df), use_container_width=True)
-
-    left2, right2 = st.columns(2)
-    with left2:
-        with st.container(border=True):
-            st.plotly_chart(stress_chart(df), use_container_width=True)
-
-    with right2:
-        with st.container(border=True):
-            st.plotly_chart(flow_chart(df), use_container_width=True)
-
-
-# --- PAGE 4: DATASET INFO ---
-elif page == "📁 Dataset Info":
-    st.title("📁 Dataset Information")
-    st.caption("Inspect missing values, features, and record samples.")
-    st.divider()
-
-    rows, cols = df.shape
-
-    st.subheader("📊 Dataset Shape")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Rows", f"{rows:,}")
-    c2.metric("Columns", cols)
-    c3.metric("Missing Values", int(df.isna().sum().sum()))
-
-    st.divider()
-
-    col_df1, col_df2 = st.columns([1, 2])
-    with col_df1:
-        st.subheader("📋 Columns")
-        st.dataframe(
-            {"Column Name": df.columns.tolist()}, use_container_width=True
+        st.plotly_chart(
+            cycle_chart(eda_df),
+            use_container_width=True
         )
 
-    with col_df2:
-        st.subheader("👀 Sample Records")
-        st.dataframe(df.head(10), use_container_width=True)
+    with right:
+        st.plotly_chart(
+            pain_chart(eda_df),
+            use_container_width=True
+        )
 
+    left, right = st.columns(2)
 
-# --- PAGE 5: ABOUT ---
-elif page == "ℹ️ About":
-    st.title("ℹ️ About FemCare AI")
+    with left:
+        st.plotly_chart(
+            stress_chart(eda_df),
+            use_container_width=True
+        )
+
+    with right:
+        st.plotly_chart(
+            flow_chart(eda_df),
+            use_container_width=True
+        )
+
     st.divider()
+
+    # ============================================================
+    # PAIN ANALYSIS
+    # ============================================================
+
+    st.subheader("🩸 Pain Level Analysis")
+
+    pain_features = [
+        "stress_score_cycle",
+        "sleep_hours_cycle",
+        "mood_score",
+        "energy_level",
+        "concentration_score",
+        "work_hours_lost",
+        "overall_health_score",
+    ]
+
+    selected_feature = st.selectbox(
+        "Analyze pain against:",
+        pain_features,
+    )
+
+    relationship = get_pain_relationship(
+        eda_df,
+        selected_feature
+    )
+
+    if not relationship.empty:
+
+        import plotly.express as px
+
+        y_column = relationship.columns[1]
+
+        fig = px.bar(
+            relationship,
+            x="pain_level",
+            y=y_column,
+            title=(
+                f"Average {selected_feature.replace('_', ' ').title()} "
+                "by Pain Level"
+            ),
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+    st.divider()
+
+    # ============================================================
+    # PAIN CORRELATIONS
+    # ============================================================
+
+    st.subheader("🔗 Correlation With Pain")
+
+    pain_corr = get_pain_correlations(
+        eda_df
+    )
+
+    pain_corr_display = (
+        pain_corr
+        .drop("pain_level", errors="ignore")
+        .sort_values(
+            ascending=False
+        )
+        .reset_index()
+    )
+
+    pain_corr_display.columns = [
+        "Feature",
+        "Correlation"
+    ]
+
+    st.dataframe(
+        pain_corr_display,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.caption(
+        "Correlation indicates statistical association, "
+        "not causation."
+    )
+
+    st.divider()
+
+    # ============================================================
+    # CORRELATION HEATMAP
+    # ============================================================
+
+    st.subheader("🔥 Feature Correlation Heatmap")
+
+    correlation_matrix = get_correlation_matrix(
+        eda_df
+    )
+
+    import plotly.express as px
+
+    fig = px.imshow(
+        correlation_matrix,
+        text_auto=".2f",
+        aspect="auto",
+        title="Correlation Matrix"
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+    st.divider()
+
+    # ============================================================
+    # WEATHER ANALYSIS
+    # ============================================================
+
+
+    st.subheader("🌦️ Environmental Feature Analysis")
+
+    weather_features = [
+        "temperature_mean",
+        "humidity_mean",
+        "precipitation",
+        "wind_speed_mean"
+    ]
+
+    # Check which weather columns actually exist
+    available_weather_features = [
+        col for col in weather_features
+        if col in eda_df.columns
+    ]
+
+    if not available_weather_features:
+
+        st.warning(
+            "No environmental/weather features are available "
+            "in the current dataset."
+        )
+
+    else:
+
+        # Calculate correlations directly from the fused dataset
+
+        weather_results = []
+
+        for feature in available_weather_features:
+
+            correlation = eda_df[
+                [feature, "pain_level"]
+            ].corr().loc[
+                feature,
+                "pain_level"
+            ]
+
+            weather_results.append({
+                "feature": feature,
+                "correlation_with_pain": round(
+                    correlation,
+                    4
+                )
+            })
+
+        weather_corr = pd.DataFrame(
+            weather_results
+        )
+
+        # Display table
+
+        st.dataframe(
+            weather_corr,
+            use_container_width=True,
+            hide_index=True
+        )
+
+        # Display chart
+
+        import plotly.express as px
+
+        fig = px.bar(
+            weather_corr,
+            x="feature",
+            y="correlation_with_pain",
+            title="Weather Feature Correlation With Pain"
+        )
+
+        fig.update_layout(
+            xaxis_title="Weather Feature",
+            yaxis_title="Correlation with Pain"
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+        # Interpretation
+
+        st.info(
+            "Correlation measures the strength and direction of a "
+            "linear relationship between each weather feature and "
+            "pain level. Correlation does not imply causation."
+        )
+
+        # LIFESTYLE ANALYSIS
+
+        st.subheader("🏃 Lifestyle Analysis")
+
+        lifestyle = get_lifestyle_analysis(
+            eda_df
+        )
+
+        if not lifestyle.empty:
+
+            st.dataframe(
+                lifestyle,
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            fig = px.bar(
+                lifestyle,
+                x="exercise_frequency",
+                y="average_pain",
+                title="Average Pain by Exercise Frequency"
+            )
+
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
+
+        st.divider()
+
+        # STATE ANALYSIS
+
+        st.subheader("🇺🇸 State-Level Analysis")
+
+        state_data = get_state_analysis(
+            eda_df
+        )
+
+        selected_state = st.selectbox(
+            "Select a state:",
+            sorted(
+                state_data["state"].unique()
+            )
+        )
+
+        selected_state_data = state_data[
+            state_data["state"]
+            == selected_state
+        ]
+
+        st.dataframe(
+            selected_state_data,
+            use_container_width=True,
+            hide_index=True,
+        )
+
+# --- PAGE 4: DATA FUSION  ---
+
+elif page == "🔗 Data Fusion":
 
     st.markdown(
         """
-    ### 🌸 FemCare AI Architecture
+        <div class="hero-container">
+            <div class="hero-title">🔗 FemCare Data Fusion</div>
+            <p class="hero-subtitle">
+                Integration of menstrual, demographic, public-health,
+                environmental and nutritional data.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    An AI-powered Retrieval-Augmented Generation (RAG) platform designed to provide evidence-based guidance and symptom assessments for menstrual health.
+    st.info(
+        "External APIs are collected separately and stored locally. "
+        "The application reads the processed datasets rather than repeatedly "
+        "calling external services."
+    )
 
-    ---
+    # FUSION PIPELINE
 
-    ### 🛠️ Key Technology Stack
+    st.subheader("🔄 Fusion Pipeline")
 
-    | Layer | Technology |
-    | :--- | :--- |
-    | **LLM Engine** | Llama 3.2 (via Ollama) |
-    | **Orchestration** | LangChain / Python |
-    | **Vector Database** | FAISS |
-    | **Embedding Model** | HuggingFace MiniLM |
-    | **UI Framework** | Streamlit |
-    | **Visualizations** | Plotly |
+    pipeline = pd.DataFrame({
+        "Stage": [
+            "Base Menstrual Dataset",
+            "Census ACS",
+            "CDC PLACES",
+            "Open-Meteo",
+            "USDA FoodData Central",
+            "OpenStreetMap / Overpass",
+            "Final Fusion",
+            "Final Cleaning",
+        ],
+        "Purpose": [
+            "Primary menstrual-cycle records",
+            "Population and demographic context",
+            "Public-health indicators",
+            "Weather and environmental context",
+            "Nutrition reference data",
+            "Healthcare accessibility reference",
+            "Combine contextual features",
+            "Prepare ML-ready dataset",
+        ],
+        "Status": [
+            "✓ Complete",
+            "✓ Complete",
+            "✓ Complete",
+            "✓ Complete",
+            "✓ Complete",
+            "✓ Implemented",
+            "✓ Complete",
+            "✓ Complete",
+        ],
+    })
 
-    ---
+    st.dataframe(
+        pipeline,
+        use_container_width=True,
+        hide_index=True,
+    )
 
-    ### ✨ Core Features
-    - **Intelligent Routing:** Automatically routes input to greetings, general chit-chat, RAG retrieval, or clinical symptom analysis.
-    - **Clinical Symptom Parser:** Extracts pain scales, sleep hours, stress scores, and risk classifications into metric cards.
-    - **Medical Knowledge RAG:** Grounded responses using FAISS vector search context.
-    - **Session Transcripts:** Complete chat history saving, renaming, and exporting capability.
-    """
+    st.divider()
+
+    # FINAL DATASET
+
+    final_path = Path(
+        "data/api_fusion/final/femcare_final_cleaned.csv"
+    )
+
+    if final_path.exists():
+
+        @st.cache_data
+        def load_final_fusion(path):
+            return pd.read_csv(path)
+
+        fusion_df = load_final_fusion(final_path)
+
+        rows, cols = fusion_df.shape
+
+        c1, c2, c3, c4 = st.columns(4)
+
+        c1.metric("Final Records", f"{rows:,}")
+        c2.metric("Final Features", cols)
+        c3.metric("Users", f"{fusion_df['user_id'].nunique():,}")
+        c4.metric("States", fusion_df["state"].nunique())
+
+        st.divider()
+
+        st.subheader("📊 Final Dataset Composition")
+
+        category_counts = {
+            "Menstrual / Clinical": 34,
+            "Census ACS": 8,
+            "CDC PLACES": 7,
+            "Open-Meteo": 6,
+        }
+
+        fusion_summary = pd.DataFrame(
+            {
+                "Source": list(category_counts.keys()),
+                "Features": list(category_counts.values()),
+            }
+        )
+
+        st.bar_chart(
+            fusion_summary.set_index("Source")
+        )
+
+        st.divider()
+
+        st.subheader("👀 Final Fused Dataset Preview")
+
+        st.dataframe(
+            fusion_df.head(20),
+            use_container_width=True,
+            height=500,
+        )
+
+        st.download_button(
+            "📥 Download Final Fused Dataset",
+            data=fusion_df.to_csv(index=False).encode("utf-8"),
+            file_name="femcare_final_cleaned.csv",
+            mime="text/csv",
+            use_container_width=True,
+        )
+
+    else:
+        st.error(
+            "Final fused dataset not found."
+        )
+
+# --- PAGE 5: COMPLETE DATASET ---
+
+elif page == "🗃️ Complete Dataset":
+
+    st.markdown(
+        """
+        <div class="hero-container">
+            <div class="hero-title">📋 Complete FemCare Dataset</div>
+            <p class="hero-subtitle">
+                Explore the cleaned and fully fused menstrual-health dataset.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    dataset_path = Path(
+        "data/api_fusion/final/femcare_final_cleaned.csv"
+    )
+
+    if not dataset_path.exists():
+        st.error(f"Dataset not found: {dataset_path}")
+        st.stop()
+
+    @st.cache_data
+    def load_complete_dataset(path):
+        return pd.read_csv(path)
+
+    complete_df = load_complete_dataset(dataset_path)
+
+    # OVERVIEW
+
+    rows, cols = complete_df.shape
+    users = complete_df["user_id"].nunique()
+    states = complete_df["state"].nunique()
+    missing = int(complete_df.isna().sum().sum())
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric("Records", f"{rows:,}")
+    c2.metric("Users", f"{users:,}")
+    c3.metric("States", states)
+    c4.metric("Columns", cols)
+
+    st.divider()
+
+    # DATA QUALITY
+
+    st.subheader("🔎 Data Quality")
+
+    missing_df = (
+        complete_df.isna()
+        .sum()
+        .reset_index()
+    )
+
+    missing_df.columns = ["Feature", "Missing"]
+
+    missing_df["Percentage"] = (
+        missing_df["Missing"] / len(complete_df) * 100
+    ).round(2)
+
+    missing_df = missing_df[
+        missing_df["Missing"] > 0
+    ].sort_values(
+        "Missing",
+        ascending=False
+    )
+
+    if missing_df.empty:
+        st.success("✓ No missing values found.")
+    else:
+        st.dataframe(
+            missing_df,
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    st.divider()
+
+    # FILTERS
+
+    st.subheader("🔍 Explore Dataset")
+
+    f1, f2, f3 = st.columns(3)
+
+    with f1:
+        state_options = ["All States"] + sorted(
+            complete_df["state"].dropna().unique().tolist()
+        )
+
+        selected_state = st.selectbox(
+            "State",
+            state_options,
+            key="dataset_state_filter",
+        )
+
+    with f2:
+        selected_pain = st.selectbox(
+            "Pain Level",
+            ["All"] + list(range(1, 11)),
+            key="dataset_pain_filter",
+        )
+
+    with f3:
+        selected_pcos = st.selectbox(
+            "PCOS Diagnosed",
+            ["All", "Yes", "No"],
+            key="dataset_pcos_filter",
+        )
+
+    filtered_df = complete_df.copy()
+
+    if selected_state != "All States":
+        filtered_df = filtered_df[
+            filtered_df["state"] == selected_state
+        ]
+
+    if selected_pain != "All":
+        filtered_df = filtered_df[
+            filtered_df["pain_level"] == selected_pain
+        ]
+
+    if selected_pcos != "All":
+        pcos_value = 1 if selected_pcos == "Yes" else 0
+
+        filtered_df = filtered_df[
+            filtered_df["pcos_diagnosed"] == pcos_value
+        ]
+
+    st.caption(
+        f"Showing {len(filtered_df):,} of {len(complete_df):,} records."
+    )
+
+    st.dataframe(
+        filtered_df,
+        use_container_width=True,
+        height=600,
+    )
+
+    # DOWNLOAD
+
+    st.divider()
+
+    st.download_button(
+        "📥 Download Complete Dataset",
+        data=complete_df.to_csv(index=False).encode("utf-8"),
+        file_name="femcare_final_cleaned.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+
+# --- PAGE 6: HEALTHCARE FINDER ---
+
+elif page == "🏥 Healthcare Finder":
+
+    st.markdown(
+        """
+        <div class="hero-container">
+            <div class="hero-title">🏥 FemCare Healthcare Finder</div>
+            <p class="hero-subtitle">
+                Find nearby hospitals, clinics, doctors, gynecologists and
+                pharmacies across the United States using OpenStreetMap data.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.info(
+        "Healthcare facilities are retrieved dynamically from OpenStreetMap. "
+        "Availability and facility information may change over time."
+    )
+
+    # U.S. STATES
+
+    us_states = [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming",
+    ]
+
+    # LOCATION INPUT
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        state = st.selectbox(
+            "Select State",
+            us_states,
+            index=20,  # Massachusetts
+            key="healthcare_state",
+        )
+
+    with col2:
+        city = st.text_input(
+            "📍 Enter City / Locality",
+            value="Boston",
+            placeholder="Example: Boston",
+            key="healthcare_city",
+        )
+
+    # SEARCH RADIUS
+
+    radius = 12
+    st.caption(
+        f"Searching healthcare facilities near {city}, {state}."
+    )
+
+    # SEARCH BUTTON
+
+    if st.button(
+        "🔎 Find Healthcare Facilities",
+        use_container_width=True,
+    ):
+
+        if not city.strip():
+
+            st.warning(
+                "Please enter a city or locality before searching."
+            )
+
+        else:
+
+            with st.spinner(
+                f"Searching healthcare facilities near "
+                f"{city}, {state}..."
+            ):
+
+                search_result = find_healthcare(
+                    city=city.strip(),
+                    state=state,
+                    radius_km=radius,
+                )
+
+                if not search_result["success"]:
+
+                    if search_result["error"] == "location":
+
+                        st.error(
+                            f"Could not verify {city}, {state}. "
+                            "Please check the city name."
+                        )
+
+                    elif search_result["error"] == "overpass":
+
+                        st.error(
+                            "The OpenStreetMap healthcare service is "
+                            "temporarily unavailable. Please try again."
+                        )
+
+                    facilities = []
+
+                else:
+                    facilities = search_result["facilities"]
+
+            # NO RESULTS
+
+            if search_result["success"] and not facilities:
+
+                st.warning(
+                    f"No healthcare facilities were found near "
+                    f"{city}, {state}."
+                )
+
+            elif search_result["success"] and facilities:
+
+                st.success(
+                    f"Found {len(facilities)} healthcare facilities "
+                    f"near {city}, {state}."
+                )
+
+            # RESULTS
+
+            if search_result["success"] and not facilities:
+
+                st.warning(
+                    f"No healthcare facilities were found near "
+                    f"{city}, {state}."
+                )
+
+            elif search_result["success"] and facilities:
+                # Show the healthcare search results.
+
+                # ========================================================
+                # HEALTHCARE RESULTS
+                # ========================================================
+
+                st.success(
+                    f"Found {len(facilities)} healthcare facilities "
+                    f"near {city}, {state}."
+                )
+
+                st.markdown(
+                    "## 🏥 Healthcare Facilities"
+                )
+
+                st.caption(
+                    "Healthcare information is retrieved from "
+                    "OpenStreetMap. Address, phone number and website "
+                    "availability depends on the information mapped for "
+                    "each facility."
+                )
+
+                # --------------------------------------------------------
+                # DATAFRAME
+                # --------------------------------------------------------
+
+                facilities_df = pd.DataFrame(
+                    facilities
+                )
+
+                expected_columns = [
+                    "name",
+                    "type",
+                    "address",
+                    "phone",
+                    "website",
+                    "latitude",
+                    "longitude",
+                ]
+
+                for column in expected_columns:
+
+                    if column not in facilities_df.columns:
+                        facilities_df[column] = ""
+
+                # Clean empty values
+
+                facilities_df["address"] = (
+                    facilities_df["address"]
+                    .fillna("")
+                    .replace("", "Address not available")
+                )
+
+                facilities_df["phone"] = (
+                    facilities_df["phone"]
+                    .fillna("")
+                    .replace("", "Not available")
+                )
+
+                facilities_df["website"] = (
+                    facilities_df["website"]
+                    .fillna("")
+                    .replace("", "Not available")
+                )
+
+                # --------------------------------------------------------
+                # FILTERS
+                # --------------------------------------------------------
+
+                st.markdown(
+                    "### 🔎 Find a Facility"
+                )
+
+                filter_col1, filter_col2 = st.columns(
+                    [1, 2]
+                )
+
+                with filter_col1:
+
+                    facility_types = [
+                        "All",
+                        "Hospital",
+                        "Clinic",
+                        "Doctor",
+                        "Gynecologist / OB-GYN",
+                        "Pharmacy",
+                        "Specialist",
+                    ]
+
+                    selected_type = st.selectbox(
+                        "Facility type",
+                        facility_types,
+                        key="healthcare_type_filter",
+                    )
+
+                with filter_col2:
+
+                    search_name = st.text_input(
+                        "Search by facility name",
+                        placeholder="e.g. hospital, clinic, pharmacy...",
+                        key="healthcare_name_search",
+                    )
+
+                # --------------------------------------------------------
+                # APPLY TYPE FILTER
+                # --------------------------------------------------------
+
+                filtered_df = facilities_df.copy()
+
+                if selected_type != "All":
+
+                    filtered_df = filtered_df[
+                        filtered_df["type"] == selected_type
+                    ]
+
+                # --------------------------------------------------------
+                # APPLY NAME SEARCH
+                # --------------------------------------------------------
+
+                if search_name.strip():
+
+                    search_text = search_name.strip()
+
+                    filtered_df = filtered_df[
+                        filtered_df["name"]
+                        .str.contains(
+                            search_text,
+                            case=False,
+                            na=False,
+                        )
+                    ]
+
+                st.caption(
+                    f"Showing {len(filtered_df)} "
+                    f"of {len(facilities_df)} facilities."
+                )
+
+                # --------------------------------------------------------
+                # QUICK COUNTS
+                # --------------------------------------------------------
+
+                hospitals = int(
+                    (
+                        facilities_df["type"]
+                        == "Hospital"
+                    ).sum()
+                )
+
+                clinics = int(
+                    (
+                        facilities_df["type"]
+                        == "Clinic"
+                    ).sum()
+                )
+
+                doctors = int(
+                    (
+                        facilities_df["type"]
+                        == "Doctor"
+                    ).sum()
+                )
+
+                gynecologists = int(
+                    (
+                        facilities_df["type"]
+                        == "Gynecologist / OB-GYN"
+                    ).sum()
+                )
+
+                pharmacies = int(
+                    (
+                        facilities_df["type"]
+                        == "Pharmacy"
+                    ).sum()
+                )
+
+                count1, count2, count3, count4, count5 = st.columns(5)
+
+                with count1:
+                    st.metric(
+                        "Hospitals",
+                        hospitals,
+                    )
+
+                with count2:
+                    st.metric(
+                        "Clinics",
+                        clinics,
+                    )
+
+                with count3:
+                    st.metric(
+                        "Doctors",
+                        doctors,
+                    )
+
+                with count4:
+                    st.metric(
+                        "Gynecologists",
+                        gynecologists,
+                    )
+
+                with count5:
+                    st.metric(
+                        "Pharmacies",
+                        pharmacies,
+                    )
+
+                st.markdown("---")
+
+                # ========================================================
+                # FACILITY DIRECTORY
+                # ========================================================
+
+                st.markdown(
+                    "### 📋 Facility Directory"
+                )
+
+                if filtered_df.empty:
+
+                    st.info(
+                        "No facilities match your selected filter."
+                    )
+
+                else:
+
+                    directory_df = filtered_df[
+                        [
+                            "name",
+                            "type",
+                            "address",
+                            "phone",
+                            "website",
+                        ]
+                    ].copy()
+
+                    directory_df.columns = [
+                        "Facility Name",
+                        "Type",
+                        "Address",
+                        "Phone",
+                        "Website",
+                    ]
+
+                    st.dataframe(
+                        directory_df,
+                        use_container_width=True,
+                        hide_index=True,
+                        height=500,
+                    )
+
+                # ========================================================
+                # MAP
+                # ========================================================
+
+                st.markdown(
+                    "### 📍 Facility Map"
+                )
+
+                map_df = filtered_df[
+                    [
+                        "latitude",
+                        "longitude",
+                        "name",
+                        "type",
+                    ]
+                ].copy()
+
+                map_df = map_df.dropna(
+                    subset=[
+                        "latitude",
+                        "longitude",
+                    ]
+                )
+
+                if not map_df.empty:
+
+                    st.map(
+                        map_df,
+                        latitude="latitude",
+                        longitude="longitude",
+                        size=40,
+                    )
+
+                else:
+
+                    st.info(
+                        "Location coordinates are not available "
+                        "for the filtered facilities."
+                    )
+
+                # ========================================================
+                # FACILITY DETAILS
+                # ========================================================
+
+                st.markdown(
+                    "### 🏥 Facility Details"
+                )
+
+                if not filtered_df.empty:
+
+                    for _, facility in filtered_df.iterrows():
+
+                        name = facility["name"]
+                        facility_type = facility["type"]
+                        address = facility["address"]
+                        phone = facility["phone"]
+                        website = facility["website"]
+
+                        latitude = facility["latitude"]
+                        longitude = facility["longitude"]
+
+                        with st.expander(
+                            f"🏥 {name}  ·  {facility_type}"
+                        ):
+
+                            detail_col1, detail_col2 = st.columns(
+                                [3, 1]
+                            )
+
+                            with detail_col1:
+
+                                st.markdown(
+                                    f"**Type:** {facility_type}"
+                                )
+
+                                st.markdown(
+                                    f"**Address:** {address}"
+                                )
+
+                                st.markdown(
+                                    f"**Phone:** {phone}"
+                                )
+
+                                if website != "Not available":
+
+                                    st.markdown(
+                                        f"**Website:** "
+                                        f"[Open website]({website})"
+                                    )
+
+                                else:
+
+                                    st.markdown(
+                                        "**Website:** Not available"
+                                    )
+
+                            with detail_col2:
+
+                                if (
+                                    pd.notna(latitude)
+                                    and pd.notna(longitude)
+                                ):
+
+                                    maps_url = (
+                                        "https://www.google.com/maps/search/"
+                                        f"?api=1&query={latitude},{longitude}"
+                                    )
+
+                                    st.link_button(
+                                        "📍 Open in Maps",
+                                        maps_url,
+                                        use_container_width=True,
+                                    )
+
+        st.divider()
+
+#--- PAGE 7: NUTRITION GUIDE ---
+
+elif page == "🍎 Nutrition Guide":
+
+    st.markdown(
+        """
+        <div class="hero-container">
+            <div class="hero-title">🍎 FemCare Nutrition Guide</div>
+            <p class="hero-subtitle">
+                Explore nutritious foods, healthy recipes and simple meal ideas
+                designed around menstrual-health wellness.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.info(
+        "Nutrition suggestions are for general wellness and educational purposes. "
+        "They are not individualized medical or dietary prescriptions."
+    )
+
+    recipes = load_recipes()
+
+    # -------------------------------------------------------------------------
+    # 1. NUTRITION FOCUS
+    # -------------------------------------------------------------------------
+
+    st.subheader("🥗 Find a Healthy Recipe")
+
+    nutrition_focus = st.selectbox(
+        "Nutrition Focus",
+        [
+            "All",
+            "Iron",
+            "Protein",
+            "Calcium",
+            "Fiber",
+            "Energy",
+            "B12",
+        ],
+        key="nutrition_focus",
+    )
+
+    filtered = filter_recipes(
+        recipes,
+        nutrition_focus=nutrition_focus,
+    )
+
+    st.caption(
+        f"Showing {len(filtered)} matching recipes."
+    )
+
+    # -------------------------------------------------------------------------
+    # 2. RECIPE CARDS
+    # -------------------------------------------------------------------------
+
+    st.divider()
+    st.subheader("🍳 Healthy Recipes")
+
+    if not filtered:
+
+        st.warning(
+            "No recipes match all the selected filters. "
+            "Try changing one of the selections."
+        )
+
+    else:
+
+        for start in range(0, len(filtered), 3):
+
+            row = filtered[start:start + 3]
+
+            cols = st.columns(3)
+
+            for col, recipe in zip(cols, row):
+
+                with col:
+
+                    with st.container(border=True):
+
+                        st.markdown(
+                            f"### 🍽️ {recipe['name']}"
+                        )
+
+                        st.caption(
+                            f"{recipe['meal_type']} • "
+                            f"{recipe['diet']} • "
+                            f"⏱️ {recipe['prep_time']} min"
+                        )
+
+                        st.markdown(
+                            "**Nutrition focus:** "
+                            + ", ".join(recipe["nutrition_focus"])
+                        )
+
+                        st.markdown(
+                            "**Ingredients:** "
+                            + ", ".join(recipe["ingredients"])
+                        )
+
+                        with st.expander("View Recipe"):
+
+                            st.markdown(
+                                "**Instructions**"
+                            )
+
+                            for step_number, step in enumerate(
+                                recipe["instructions"],
+                                start=1,
+                            ):
+
+                                st.write(
+                                    f"{step_number}. {step}"
+                                )
+
+
+    # =============================================================================
+    # 3. FOOD EXPLORER
+    # =============================================================================
+
+    st.divider()
+
+    st.subheader("🔬 Food Explorer")
+
+    st.write(
+        "Explore nutrient information collected from USDA FoodData Central. "
+        "Values are provided per 100 g of food."
+    )
+
+    usda_df = load_usda_foods()
+
+    if usda_df.empty:
+
+        st.warning(
+            "USDA nutrition data is not available."
+        )
+
+    else:
+
+        food_names = get_usda_food_names(usda_df)
+
+        if not food_names:
+
+            st.warning(
+                "No foods are available in the USDA nutrition dataset."
+            )
+
+        else:
+
+            selected_food = st.selectbox(
+                "Select a food",
+                food_names,
+                key="usda_food_selector",
+            )
+
+            food = get_food_record(
+                usda_df,
+                selected_food,
+            )
+
+            if food is not None:
+
+                st.markdown(
+                    f"### 🍽️ {food['food_name']}"
+                )
+
+                st.caption(
+                    f"USDA FoodData Central • "
+                    f"Data type: {food['data_type']} • "
+                    f"FDC ID: {int(food['fdc_id'])}"
+                )
+
+                st.markdown(
+                    "**Nutrition values per 100 g**"
+                )
+
+                # -----------------------------------------------------------------
+                # ROW 1
+                # -----------------------------------------------------------------
+
+                c1, c2, c3, c4 = st.columns(4)
+
+                with c1:
+                    st.metric(
+                        "Energy",
+                        format_nutrient(
+                            food["energy_kcal_100g"],
+                            "kcal",
+                        ),
+                    )
+
+                with c2:
+                    st.metric(
+                        "Protein",
+                        format_nutrient(
+                            food["protein_g_100g"],
+                            "g",
+                        ),
+                    )
+
+                with c3:
+                    st.metric(
+                        "Carbohydrates",
+                        format_nutrient(
+                            food["carbohydrates_g_100g"],
+                            "g",
+                        ),
+                    )
+
+                with c4:
+                    st.metric(
+                        "Fat",
+                        format_nutrient(
+                            food["fat_g_100g"],
+                            "g",
+                        ),
+                    )
+
+                # -----------------------------------------------------------------
+                # ROW 2
+                # -----------------------------------------------------------------
+
+                c1, c2, c3, c4 = st.columns(4)
+
+                with c1:
+                    st.metric(
+                        "Iron",
+                        format_nutrient(
+                            food["iron_mg_100g"],
+                            "mg",
+                        ),
+                    )
+
+                with c2:
+                    st.metric(
+                        "Magnesium",
+                        format_nutrient(
+                            food["magnesium_mg_100g"],
+                            "mg",
+                        ),
+                    )
+
+                with c3:
+                    st.metric(
+                        "Calcium",
+                        format_nutrient(
+                            food["calcium_mg_100g"],
+                            "mg",
+                        ),
+                    )
+
+                with c4:
+                    st.metric(
+                        "Fiber",
+                        format_nutrient(
+                            food["fiber_g_100g"],
+                            "g",
+                        ),
+                    )
+
+                # -----------------------------------------------------------------
+                # ROW 3
+                # -----------------------------------------------------------------
+
+                c1, c2 = st.columns(2)
+
+                with c1:
+                    st.metric(
+                        "Vitamin B6",
+                        format_nutrient(
+                            food["vitamin_b6_mg_100g"],
+                            "mg",
+                        ),
+                    )
+
+                with c2:
+                    st.metric(
+                        "Vitamin B12",
+                        format_nutrient(
+                            food["vitamin_b12_ug_100g"],
+                            "µg",
+                        ),
+                    )
+
+                st.caption(
+                    "Nutrition values represent the selected USDA food record "
+                    "and are reported per 100 g. Missing USDA values are shown "
+                    "as 'Not available'."
+                )
+
+# --- PAGE 8: ABOUT ---
+
+elif page == "ℹ️ About":
+
+    st.markdown(
+        """
+        <div class="hero-container">
+            <div class="hero-title">🌸 About FemCare AI</div>
+            <p class="hero-subtitle">
+                AI-powered menstrual health assistance, analytics and
+                contextual health intelligence.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.subheader("🎯 Project Objective")
+
+    st.write(
+        """
+        FemCare AI is an AI-powered menstrual health platform designed to
+        provide menstrual-health information, symptom analysis, statistical
+        insights and contextual healthcare information through a unified
+        interface.
+        """
+    )
+
+    st.divider()
+
+    st.subheader("🧠 AI Architecture")
+
+    architecture = pd.DataFrame({
+        "Component": [
+            "User Interface",
+            "Intent Router",
+            "Clinical Engine",
+            "RAG Retriever",
+            "Embedding Model",
+            "Vector Database",
+            "LLM",
+            "Analytics",
+            "Data Fusion",
+        ],
+        "Technology": [
+            "Streamlit",
+            "Python",
+            "Python",
+            "LangChain / Retriever",
+            "MiniLM",
+            "FAISS",
+            "Llama 3.2 via Ollama",
+            "Pandas / Plotly",
+            "Python / Pandas",
+        ],
+    })
+
+    st.dataframe(
+        architecture,
+        use_container_width=True,
+        hide_index=True,
+    )
+
+    st.divider()
+
+    st.subheader("📊 Data Sources")
+
+    st.markdown(
+        """
+        - 🩸 Menstrual health dataset
+        - 🏛️ Census ACS
+        - 🏥 CDC PLACES
+        - 🌦️ Open-Meteo
+        - 🥗 USDA FoodData Central
+        - 🗺️ OpenStreetMap / Overpass
+        """
+    )
+
+    st.divider()
+
+    st.subheader("⚠️ Important Disclaimer")
+
+    st.warning(
+        "FemCare AI is an educational and analytical system. "
+        "It does not replace professional medical diagnosis, treatment "
+        "or consultation with a qualified healthcare professional."
+    )
+
+    st.divider()
+
+    st.subheader("🚀 Future Scope")
+
+    st.markdown(
+        """
+        - Machine-learning based prediction
+        - Personalized health insights
+        - Multilingual support
+        - Voice interaction
+        - Healthcare appointment integration
+        - Expanded healthcare accessibility data
+        """
     )
