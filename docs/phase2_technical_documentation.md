@@ -10,7 +10,7 @@ This file is the editable contents list for the technical submission. Paths are 
 | 4. Final fused CSV | `data/api_fusion/final/femcare_final_fused_dataset.csv`, `data/api_fusion/final/femcare_final_cleaned.csv` | Fusion output and final cleaned analysis/RAG input. |
 | 5. EDA script and outputs | `scripts/eda_final_dataset.py`, `data/api_fusion/eda/` | Reproducible summaries, correlations, and figures. |
 | 6. LLM/RAG implementation | `embeddings/build_phase2_knowledge_base.py`, `rag/phase2_retriever.py`, `rag/llm.py`, `vectorstore/phase2_original_index/index.joblib`, `vectorstore/phase2_fused_index/index.joblib` | Builds and uses comparable TF-IDF indexes; Llama receives retrieved context. |
-| 7. Screenshots | `screenshots/` | Earlier app screenshots are present. New Phase 2 screenshots requested below are still needed. |
+| 7. Screenshots | `screenshots/`, `screenshots/phase2/` | Earlier app screenshots and five reviewed Phase 2 captures. Two requested captures still need replacement. |
 | 8. README | `README.md`, this file | Setup, reproduction steps, and submission map. |
 | 9. API references | Links below and collection scripts in `scripts/` | API sources and exact endpoints/fields used. |
 | 10. Results and observations | `report/phase2/FemCare_Phase_2_Report.docx`, `report/phase2/assets/phase2_rag_summary.csv`, `report/phase2/assets/phase2_rag_evaluation.csv`, `report/phase2/assets/knowledge_base_manifest.json`, `data/api_fusion/eda/` | Report, per-question evidence, aggregate measures, knowledge-base counts, and EDA outputs. |
@@ -44,15 +44,20 @@ The baseline and enhanced comparisons use the same TF-IDF retrieval method and L
 
 The stored ten-question run reports 5/10 correct answers before fusion and 10/10 after fusion. The average local response times were 24.8 and 35.8 seconds, respectively. These are results for a small, hand-designed test set and one local run; they do not establish general accuracy or medical safety. State-level health values are context about a population and should not be interpreted as patient-level measurements. Weather represents a state capital, not each user's exact location.
 
-## Screenshots still needed for the Phase 2 demonstration
+## Phase 2 screenshots
 
-Save new captures in `screenshots/phase2/` and update this checklist and the report as needed. Hide API keys, personal chat history, account details, and any private identifiers before capturing.
+The reviewed captures below are in `screenshots/phase2/`. The source panels are collapsed in the answer captures; opening them in a future capture would make the evidence stronger.
 
-1. `phase2_home.png` — current FemCare home/chat screen showing that the app opens.
-2. `phase2_general_answer.png` — a general menstrual-health question with its answer and source, such as “What is PCOS?”
-3. `phase2_state_answer.png` — a fused-data question, such as “What is the median household income in California?”, with the answer and source visible.
-4. `phase2_comparison_answer.png` — a comparison question, such as “Compare average menstrual pain in California and Texas,” with both values visible.
-5. `phase2_limitations_answer.png` — a question such as “Does living in California cause higher period pain?” showing an appropriate caution about causation.
-6. `phase2_analytics.png` — the current app's analytics view using the fused data, if that view is part of the demonstration.
+| File | Status | What it shows |
+| --- | --- | --- |
+| `phase2_home.png` | Uploaded | FemCare chat interface and Phase 2 system status. |
+| `phase2_general_answer.png` | Uploaded | A correct answer to “What is PCOS?” after the retriever fix. |
+| `phase2_state_answer.png` | Uploaded | California median household income answer. |
+| `phase2_comparison_answer.png` | Uploaded | California and Texas average pain values. |
+| `phase2_fusion_pipeline.png` | Uploaded | Data Fusion page with pipeline stages and final dataset counts. |
+| `phase2_limitations_answer.png` | Needs a new capture | The current local file shows an older clinical-style response with unsupported speculation. Ask the same question again in the updated app and capture a concise explanation that state association does not establish causation. |
+| `phase2_analytics.png` | Needs a new capture | The current local file shows Data Fusion, not the EDA & Analytics page. Capture the actual EDA & Analytics page if it is part of the demonstration. |
+
+Hide API keys, personal chat history, account details, and private identifiers in future captures.
 
 The figures in `data/api_fusion/eda/figures/` and `report/phase2/assets/` are generated charts, not screenshots of the running application.
